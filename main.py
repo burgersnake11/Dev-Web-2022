@@ -4,7 +4,6 @@ from pkg_resources import require
 import model as model
 from database import SessionLocal, engine, session
 from model import Enfant
-from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi import FastAPI, Depends, Request
 from sqlalchemy.orm import Session
@@ -32,9 +31,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-model.Base.metadata.create_all(bind=engine)
-app.mount("/static", StaticFiles(directory="static"), name="static")
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory="views")
 
 # ****************************************************connection db*******************************************************
 def get_database_session():
