@@ -18,7 +18,8 @@ class Enfant(Base):
     nom_enfant = Column(String(45), nullable=False)
     prenom_enfant = Column(String(45), nullable=False)
     ddn_enfant = Column(String(45), nullable=False)
-    numero_nationnal_enfant = Column(String(45), nullable=False)
+    numero_national_enfant = Column(String(45), nullable=False)
+    id_groupe = Column(Integer, nullable=False)
 
     # def __repr__(self):
     #     return f"Enfant ('{self.id}','{self.nom}','{self.prenom}','{self.adresse}','{self.date_naissance}','{self.numero_national}')"
