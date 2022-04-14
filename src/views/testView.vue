@@ -1,14 +1,34 @@
 <template>
   <v-app id="fiche">
     <h1>Fiches Médicales</h1>
-    <v-main class="grey lighten-2">
-        
+    <v-main class="grey lighten-2">  
       <v-flex xs12 sm6 lg3 v-for="(indice, i) in groupes" :key="i">
         <v-data-table
-            :headers="i.text"
-            :items="groupes"
+            :headers="groupes[0]"
+            :items="section0"
             :items-per-page="5"
-            class="elevation-1"
+            class="elevation-4"
+        >
+        </v-data-table>
+        <v-data-table
+            :headers="groupes[1]"
+            :items="section1"
+            :items-per-page="5"
+            class="elevation-4"
+        >
+        </v-data-table>
+        <v-data-table
+            :headers="groupes[2]"
+            :items="section2"
+            :items-per-page="5"
+            class="elevation-4"
+        >
+        </v-data-table>
+        <v-data-table
+            :headers="groupes[3]"
+            :items="section3"
+            :items-per-page="5"
+            class="elevation-4"
         >
         </v-data-table>
       </v-flex>
@@ -25,47 +45,42 @@ export default {
         return{
             content: null,
             groupes: [
-                {text: "Les Poussins", value: "0"},
-                {text: "Les Benjamines / Benjamins", value: "1"},
-                {text: "Les Etincelles / Chevalier", value: "2"},
-                {text: "Les Alpines / Conquérants", value: "3"},
-                {text: "Les Grandes / Grands", value: "4"}
+                [{text: "Les Poussins", value: "nom_complet"}],
+                [{text: "Les Benjamines / Benjamins", value: "nom_complet"}],
+                [{text: "Les Etincelles / Chevalier", value: "nom_complet"}],
+                [{text: "Les Alpines / Conquérants", value: "nom_complet"}]
             ],
             section0: [],
             section1: [],
             section2: [],
             section3: [],
-            section4: [],
 
-            groupe: ["Les poussins", "Les Benjamines / Benjamins", "Les Etincelles / Chevalier", "Les Alpines / Conquérants", "Les Aventurières / Conquérants", "Les Grandes / Grands"],
             colors: ["green", "yellow", "red", "purple","blue"]
         }
     },
     mounted(){
         axios
-        .get('http://localhost:8000/affichage')
+        .get('http://localhost:8000/fiches')
         .then((response) => {
             this.content = response.data;
             for (let i in this.content){
                 if (this.content[i].id_groupe == 0){
-                    this.section0.push(this.content[i]);
-                    console.log(this.section0);
+                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                    this.section0.push(result);
                 }
                 if (this.content[i].id_groupe == 1){
-                    this.section1.push(this.content[i]);
+                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                    this.section1.push(result);
                 }
                 if (this.content[i].id_groupe == 2){
-                    this.section2.push(this.content[i]);
+                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                    this.section2.push(result);
                 }
                 if (this.content[i].id_groupe == 3){
-                    this.section3.push(this.content[i]);
-                }
-                if (this.content[i].id_groupe == 4){
-                    this.section4.push(this.content[i]);
+                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                    this.section3.push(result);
                 }
             }
-
-
         });
     }
 }

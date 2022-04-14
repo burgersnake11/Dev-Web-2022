@@ -1,3 +1,4 @@
+from unicodedata import name
 from fastapi import FastAPI
 from fastapi.encoders import jsonable_encoder
 from pkg_resources import require
@@ -6,7 +7,7 @@ from database import SessionLocal, engine, session
 from model import Enfant
 from fastapi.templating import Jinja2Templates
 from fastapi import FastAPI, Depends, Request
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, load_only
 from fastapi.responses import HTMLResponse
 from fastapi import Depends, FastAPI, Request, Form
 import json
@@ -59,6 +60,11 @@ async def give_mvp(request: Request, db: Session = Depends(get_database_session)
 @app.get("/affichage")
 async def afficher(db: Session = Depends(get_database_session)):
     records = db.query(model.Enfant).all()
+    return records
+
+@app.get("/fiches")
+async def get_fiches(db: Session = Depends(get_database_session)):
+    records = db.query(model.Enfant).options(load_only("nom_enfant", "prenom_enfant", "id_groupe")).all()
     return records
 
 

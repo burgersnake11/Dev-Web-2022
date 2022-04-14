@@ -3,7 +3,6 @@
     <h1>Fiches Médicales</h1>
     <v-main class="grey lighten-2">
       <v-flex xs12 sm6 lg3 v-for="(indice, i) in groupes" :key="i">
-        
         <v-card height="80" :class="colors[i]">{{indice}}
           <v-list v-for="index  in content" :key="index">
             <v-list-tile v-if="index.id_groupe == i">
@@ -40,7 +39,7 @@ export default {
     },
     mounted(){
         axios
-        .get('http://localhost:8000/affichage')
+        .get('http://localhost:8000/fiches')
         .then((response) => {
             this.content = response.data;
             console.log(this.content);
