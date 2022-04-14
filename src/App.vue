@@ -3,6 +3,7 @@
     <v-navigation-drawer
       v-model="drawer"
       app
+      class="nav"
     >
       <v-list-item>
         <v-list-item-content>
@@ -67,3 +68,6 @@
     }),
   }
 </script>
+<style>
+
+</style>

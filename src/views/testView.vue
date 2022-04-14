@@ -2,8 +2,15 @@
   <v-app id="fiche">
     <h1>Fiches Médicales</h1>
     <v-main class="grey lighten-2">
-      <v-flex xs12 sm6 lg3 v-for="(indice, i) in groupes" :key="i">
         
+      <v-flex xs12 sm6 lg3 v-for="(indice, i) in groupes" :key="i">
+                  <v-data-table
+            :headers="groupe.i"
+            :items="groupes"
+            :items-per-page="5"
+            class="elevation-1"
+        >
+        </v-data-table>
         <v-card height="80" :class="colors[i]">{{indice}}
           <v-list v-for="index  in content" :key="index">
             <v-list-tile v-if="index.id_groupe == i">
@@ -34,6 +41,13 @@ export default {
     data(){
         return{
             content: null,
+            groupe: [
+                {0: "Les Poussins", value: "0"},
+                {1: "Les Benjamines / Benjamins", value: "1"},
+                {2: "Les Etincelles / Chevalier", value: "2"},
+                {3: "Les Alpines / Conquérants", value: "3"},
+                {4: "Les Grandes / Grands", value: "4"}
+            ],
             groupes: ["Les poussins", "Les Benjamines / Benjamins", "Les Etincelles / Chevalier", "Les Alpines / Conquérants", "Les Aventurières / Conquérants", "Les Grandes / Grands"],
             colors: ["green", "yellow", "red", "purple","blue"]
         }
