@@ -1,52 +1,27 @@
 <template>
-  <v-app id="fiche">
-    <h1>Fiches Médicales</h1>
-    <v-main class="grey lighten-2">  
-      <v-flex xs12 sm6 lg9 id="cadre">
-                <v-data-table
-                    :headers="groupes[0]"
-                    :items="section0"
-                    :items-per-page="5"
-                    class="elevation-8"
-                    id="poussin"          
-                >
-                </v-data-table>
-                <v-data-table
-                    :headers="groupes[1]"
-                    :items="section1"
-                    :items-per-page="5"
-                    class="elevation-8"
-                    id="benjamins"
-                >
-                </v-data-table>
-                <v-data-table
-                    :headers="groupes[2]"
-                    :items="section2"
-                    :items-per-page="5"
-                    class="elevation-8"
-                    id="chevaliers"
-
-                >
-                </v-data-table>
-                <v-data-table
-                    :headers="groupes[3]"
-                    :items="section3"
-                    :items-per-page="5"
-                    class="elevation-8"
-                    id="conquerants"
-                >
-                </v-data-table>
-                <v-data-table
-                    :headers="groupes[4]"
-                    :items="section4"
-                    :items-per-page="5"
-                    class="elevation-8"
-                    id="aventuriers"
-                >
-                </v-data-table>
-      </v-flex>
-    </v-main>
-  </v-app>
+    <v-app>
+        <h1>Liste des fiches</h1>
+            <v-card class="elevation-8">
+                <v-list id="liste">
+                    <v-list-item-group>
+                        <v-list-title>
+                            Les Poussins
+                        </v-list-title>
+                        <v-divider></v-divider>
+                        <v-list-item v-for="i in section0" :key="i">
+                                    <v-list-item-content>
+                                        {{i.nom_complet}}
+                                    </v-list-item-content>
+                                    <v-list-item-action>
+                                        <v-btn>
+                                            Fiche
+                                        </v-btn>
+                                    </v-list-item-action>                                                      
+                        </v-list-item>
+                    </v-list-item-group>
+                </v-list>
+            </v-card>
+    </v-app>
 </template>
 
 <script>
@@ -104,33 +79,8 @@ export default {
     }
 }
 </script>
-<style scoped>
-#cadre{
-    max-width: 1600px;
-    display: grid;
-    margin: 150px auto;
-    grid-template-columns: repeat(auto-fill, 300px);
-    grid-gap: 20px;
-    font-style: oblique;
-
+<style>
+#liste{
+    background-color:   #abebc6 ;
 }
-
-#poussin{
-    background-color:   #82e0aa;
-    width: 300px;
-}
-
-#benjamins{
-    background-color:  #f7dc6f ;
-}
-#chevaliers{
-    background-color:  #f8c471 ;
-}
-#conquerants{
-    background-color:  #ec7063 ;
-}
-#aventuriers{
-    background-color:  #bb8fce ;
-}
-
 </style>
