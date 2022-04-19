@@ -40,10 +40,11 @@
     </v-navigation-drawer>
 
     <v-app-bar app>
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-icon @click="drawer = !drawer">{{profil}}</v-icon>
       <v-btn :to='accueil'>Accueil</v-btn>
       <v-btn :to='contact'>Staff</v-btn>
       <v-btn :to='accueil'>Blog</v-btn>
+
     </v-app-bar>
 
     <v-main>
