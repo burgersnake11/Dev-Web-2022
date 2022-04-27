@@ -4,6 +4,7 @@ const ficheSchema = mongoose.Schema({
     nom_enfant: { type: String, required: true },
     prenom_enfant: { type: String, required: true },
     adresse_enfant: { type: String, required: true },
+    ddn_enfant: { type: String, required: true},
     numero_registre_enfant: { type: String, required: true },
     facebook_autorisation: { type: Boolean, required: true },
     nom_resp_1: { type: String, required: true },
@@ -16,7 +17,7 @@ const ficheSchema = mongoose.Schema({
     email_resp_2: { type: String, required: false },
     tel_urgence: { type: Number, required: true },
     tetanos: { type: Date, required: true },
-    groupe_enfant: { type: String, required: true },
+    groupe_sanguin: { type: String, required: true },
     protection_nuit: { type: Boolean, required: true },
     peur_nuit: { type: Boolean, required: true },
     appareil_dentaire: { type: Boolean, required: true },
@@ -43,11 +44,11 @@ const ficheSchema = mongoose.Schema({
     soleil: { type: Boolean, required: true },
     maquillage: { type: Boolean, required: true },
     savon: { type: Boolean, required: true },
+    poils_animaux: { type: Boolean, required: true },
     allergie_supplementaire: { type: String, required: true },
-    sais_nager: { type: Boolean, required: true },
+    sais_nager: { type: String, required: true },
     sport_difficile: { type: String, required: true },
-    remarque_supplementaire: { type: String, required: true },
-    poils_animaux: { type: Boolean, required: true }
+    remarque_supplementaire: { type: String, required: true }
   });
 
 

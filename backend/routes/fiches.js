@@ -1,7 +1,10 @@
 const express = require('express');
-const router = express.Router();
+const routerFiche = express.Router();
 
 const fichesCtrl = require('../controllers/fiches');
 
 
-router.get('/fiches', fichesCtrl.TouteLesFiches);
+routerFiche.get('/',fichesCtrl.TouteLesFiches);
+routerFiche.post('/',fichesCtrl.CreerUneFiche);
+
+module.exports = routerFiche;
