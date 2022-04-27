@@ -56,7 +56,7 @@
     data: () => ({
       drawer: null,
       items: [
-          { title: 'Compte', icon: 'mdi-account-box', to: '/compte'},
+          { title: 'Compte', icon: 'mdi-account-box', to: '/creation'},
           { title: 'Fiches Médicales', icon: 'mdi-image', to:  '/fiches'},
           { title: 'Contact', icon: 'mdi-help-box', to: '/contact' },
           { title: 'Formulaire', icon: 'mdi-help-box', to: '/formulaire' }

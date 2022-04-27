@@ -25,14 +25,19 @@ const routes = [
   component: () => import('../views/ContactView.vue')
   },
   {
-    path: '/compte',
-    name: 'compte',
+    path: '/creation',
+    name: 'creation',
     component: () => import('../views/FormulaireCompte.vue')
   },
   {
     path: '/formulaire',
     name: 'formulaire',
     component: () => import('../views/FormulaireView.vue')
+  },
+  {
+    path: '/connection',
+    name: 'connection',
+    component: () => import('../views/ConnectionView.vue')
   },
 ]
 

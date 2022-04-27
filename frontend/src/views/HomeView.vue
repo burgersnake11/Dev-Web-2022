@@ -6,11 +6,10 @@
   import HelloWorld from '../components/HelloWorld'
 
   export default {
-    name: 'Home_Vue',
+    name: 'Home',
 
     components: {
       HelloWorld,
     },
   }
 </script>
-

@@ -24,8 +24,14 @@
                 class="mr-4"
                 @click="test"
                 >
-                TEST
+                Créer mon compte!
                 </v-btn>
+                <br>
+                <br>
+                <p class="font-weight-thin">
+                Vous avez déja un compte?
+                </p>
+                <v-btn to="/connection">Je me connecte !</v-btn>
             </v-form>
     </div>
 </template>
@@ -33,6 +39,7 @@
 
 
 <script>
+import axios from 'axios'
 export default {
     data() {
         return {
@@ -43,7 +50,18 @@ export default {
     },
     methods : {
         test() {
-            console.log(this.email_compte, this.mdp_compte);
+            
+            if (this.mdp_compte != this.mdp_compte2) {
+                alert("Les deux mots de passe ne sont pas identiques");
+            } else {
+                let user = {
+                    email: this.email_compte,
+                    password: this.mdp_compte
+                }
+                axios
+                    .post("http://127.0.0.1:3000/api/auth/signup", user);
+                console.log(user)
+            }
         }
     }
 }
