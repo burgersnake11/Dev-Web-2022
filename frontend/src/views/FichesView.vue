@@ -38,7 +38,7 @@ export default {
     },
     mounted(){
         axios
-        .get('http://localhost:8000/affichage')
+        .get('http://localhost:3000/api/fiches')
         .then((response) => {
             this.content = response.data;
             console.log(this.content);

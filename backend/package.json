@@ -2,7 +2,7 @@
   "name": "nodedev3",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -14,6 +14,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.0",
     "mongoose-unique-validator": "^3.0.0",
+    "nodemon": "^2.0.15",
     "unique": "^0.0.1"
   }
 }
