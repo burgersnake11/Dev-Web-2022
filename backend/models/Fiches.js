@@ -4,7 +4,7 @@ const ficheSchema = mongoose.Schema({
     nom_enfant: { type: String, required: true },
     prenom_enfant: { type: String, required: true },
     adresse_enfant: { type: String, required: true },
-    ddn_enfant: { type: String, required: true},
+    ddn_enfant: { type: Date, required: true},
     numero_registre_enfant: { type: String, required: true },
     facebook_autorisation: { type: Boolean, required: true },
     nom_resp_1: { type: String, required: true },
@@ -48,7 +48,8 @@ const ficheSchema = mongoose.Schema({
     allergie_supplementaire: { type: String, required: true },
     sais_nager: { type: String, required: true },
     sport_difficile: { type: String, required: true },
-    remarque_supplementaire: { type: String, required: true }
+    remarque_supplementaire: { type: String, required: true },
+    id_groupe : {type: Number, required: true}
   });
 
 

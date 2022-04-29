@@ -39,6 +39,11 @@ const routes = [
     name: 'connection',
     component: () => import('../views/ConnectionView.vue')
   },
+  {
+    path: '/trifiches',
+    name: 'trifiches',
+    component: () => import('../views/TriFiches.vue')
+  },
 ]
 
 const router = new VueRouter({

@@ -59,7 +59,8 @@
           { title: 'Compte', icon: 'mdi-account-box', to: '/creation'},
           { title: 'Fiches Médicales', icon: 'mdi-image', to:  '/fiches'},
           { title: 'Contact', icon: 'mdi-help-box', to: '/contact' },
-          { title: 'Formulaire', icon: 'mdi-help-box', to: '/formulaire' }
+          { title: 'Formulaire', icon: 'mdi-help-box', to: '/formulaire' },
+          { title: 'Tri', icon: 'mdi-image', to: '/trifiches' }
         ],
       nom: "Margaret",
       statut: "Connecté(e)",
