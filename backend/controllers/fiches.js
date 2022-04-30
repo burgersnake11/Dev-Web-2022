@@ -1,7 +1,21 @@
 const Fiches = require('../models/Fiches');
 
 
+
 exports.TouteLesFiches = (req, res) => {
+  if(req.query.asthme == "true"){
+    Fiches.find({asthme : req.query.asthme}).then(
+      (test) => {
+        res.status(200).json(test);
+      }
+    ).catch(
+      (error) => {
+        res.status(400).json({
+          error: error
+        });
+      }
+    );
+  } else {
     Fiches.find().then(
       (test) => {
         res.status(200).json(test);
@@ -13,6 +27,7 @@ exports.TouteLesFiches = (req, res) => {
         });
       }
     );
+  }
 };
 
 exports.CreerUneFiche = (req, res) => {

@@ -1,51 +1,68 @@
 <template>
   <v-app id="fiche">
     <h1>Fiches Médicales</h1>
-    <v-main class="grey lighten-2">  
-      <v-flex xs12 sm6 lg9 id="cadre">
-                <v-data-table
-                    :headers="groupes[0]"
-                    :items="section0"
-                    :expand-icon="oui"
-                    :items-per-page="5"
-                    class="elevation-8"
-                    id="poussin"          
-                >
-                </v-data-table>
-                <v-data-table
-                    :headers="groupes[1]"
-                    :items="section1"
-                    :items-per-page="5"
-                    class="elevation-8"
-                    id="benjamins"
-                >
-                </v-data-table>
-                <v-data-table
-                    :headers="groupes[2]"
-                    :items="section2"
-                    :items-per-page="5"
-                    class="elevation-8"
-                    id="chevaliers"
+    <v-main class="grey lighten-2"> 
+        <v-container fluid>
+            <v-col
+            class="d-flex"
+            cols="12"
+            sm="6"
+            >
+                <v-select
+                v-model="selectedallergie"
+                :items="allergie"
+                item-text="nomallergie"
+                label="allergie"
+                return-object
+                ></v-select>
+            </v-col>
+            <v-btn @click="triage">Valider</v-btn>
+            <v-btn @click="reinitialiser">Réinitialiser</v-btn>
+        </v-container>
+        <v-flex xs12 sm6 lg9 id="cadre">
+                    <v-data-table
+                        :headers="groupes[0]"
+                        :items="section0"
+                        :expand-icon="oui"
+                        :items-per-page="5"
+                        class="elevation-8"
+                        id="poussin"          
+                    >
+                    </v-data-table>
+                    <v-data-table
+                        :headers="groupes[1]"
+                        :items="section1"
+                        :items-per-page="5"
+                        class="elevation-8"
+                        id="benjamins"
+                    >
+                    </v-data-table>
+                    <v-data-table
+                        :headers="groupes[2]"
+                        :items="section2"
+                        :items-per-page="5"
+                        class="elevation-8"
+                        id="chevaliers"
 
-                >
-                </v-data-table>
-                <v-data-table
-                    :headers="groupes[3]"
-                    :items="section3"
-                    :items-per-page="5"
-                    class="elevation-8"
-                    id="conquerants"
-                >
-                </v-data-table>
-                <v-data-table
-                    :headers="groupes[4]"
-                    :items="section4"
-                    :items-per-page="5"
-                    class="elevation-8"
-                    id="aventuriers"
-                >
-                </v-data-table>
-      </v-flex>
+                    >
+                    </v-data-table>
+                    <v-data-table
+                        :headers="groupes[3]"
+                        :items="section3"
+                        :items-per-page="5"
+                        class="elevation-8"
+                        id="conquerants"
+                    >
+                    </v-data-table>
+                    <v-data-table
+                        :headers="groupes[4]"
+                        :items="section4"
+                        :items-per-page="5"
+                        class="elevation-8"
+                        id="aventuriers"
+                    >
+                    </v-data-table>
+        </v-flex>
     </v-main>
   </v-app>
 </template>
@@ -59,6 +76,8 @@ export default {
         return{
             content: null,
             oui: "test",
+            selectedallergie: null,
+            allergie: [{nomallergie: 'asthme'}, {nomallergie: 'peur_nuit'}],
             groupes: [
                 [{text: "Les Poussins", value: "nom_complet", class: "my-header-style"}],
                 [{text: "Les Benjamines / Benjamins", value: "nom_complet", class:"my-header-style"}],
@@ -103,9 +122,89 @@ export default {
             }
         });
     },
+    methods:{
+        triage(){
+            let allergie_choisie;
+            if(this.selectedallergie.nomallergie == "asthme"){
+                allergie_choisie = {asthme : true};
+            }
+            else if(this.selectedallergie.nomallergie == "peur_nuit"){
+                allergie_choisie = {peur_nuit : true};
+            }
+            console.log(allergie_choisie)
+            axios.get('http://localhost:3000/api/fiches', {params: allergie_choisie})
+            .then((response) => {
+                this.content = response.data;
+                this.section0 = [];
+                this.section1 = [];
+                this.section2 = [];
+                this.section3 = [];
+                this.section4 = [];
+                for (let i in this.content){
+                if (this.content[i].id_groupe == 0){
+                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                    this.section0.push(result);
+                }
+                if (this.content[i].id_groupe == 1){
+                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                    this.section1.push(result);
+                }
+                if (this.content[i].id_groupe == 2){
+                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                    this.section2.push(result);
+                }
+                if (this.content[i].id_groupe == 3){
+                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                    this.section3.push(result);
+                }
+                if (this.content[i].id_groupe == 4){
+                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                    this.section4.push(result);
+                }
+            }
+            })
+        },
+        reinitialiser(){
+        axios
+        .get('http://localhost:3000/api/fiches')
+        .then((response) => {
+            this.content = response.data;
+                this.section0 = [];
+                this.section1 = [];
+                this.section2 = [];
+                this.section3 = [];
+                this.section4 = [];
+            for (let i in this.content){
+                if (this.content[i].id_groupe == 0){
+                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                    this.section0.push(result);
+                }
+                if (this.content[i].id_groupe == 1){
+                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                    this.section1.push(result);
+                }
+                if (this.content[i].id_groupe == 2){
+                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                    this.section2.push(result);
+                }
+                if (this.content[i].id_groupe == 3){
+                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                    this.section3.push(result);
+                }
+                if (this.content[i].id_groupe == 4){
+                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                    this.section4.push(result);
+                }
+            }
+        });
+    }
+    }
 }
 </script>
 <style scoped>
+.allergie{
+    width: 30px;
+}
 #cadre{
     max-width: 1600px;
     display: grid;

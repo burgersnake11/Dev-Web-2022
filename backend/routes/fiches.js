@@ -3,7 +3,6 @@ const routerFiche = express.Router();
 
 const fichesCtrl = require('../controllers/fiches');
 
-
 routerFiche.get('/',fichesCtrl.TouteLesFiches);
 routerFiche.post('/',fichesCtrl.CreerUneFiche);
 
