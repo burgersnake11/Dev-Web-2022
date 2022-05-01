@@ -8,9 +8,9 @@
                             Les Poussins
                         </v-list-title>
                         <v-divider></v-divider>
-                        <v-list-item v-for="i in section0" :key="i">
+                        <v-list-item v-for="i in content" :key="i">
                                     <v-list-item-content>
-                                        {{i.nom_complet}}
+                                        {{i.nom_enfant}} {{i.prenom_enfant}}
                                     </v-list-item-content>
                                     <v-list-item-action>
                                         <v-btn>
@@ -20,6 +20,15 @@
                         </v-list-item>
                     </v-list-item-group>
                 </v-list>
+            </v-card>
+            <v-card>
+                <h1>Fiche médicale</h1>
+                <v-card-content v-for="e in content" :key="e">
+                    <p>
+                        {{e.nom_enfant}}
+                    </p>
+                    
+                </v-card-content>
             </v-card>
     </v-app>
 </template>
@@ -50,31 +59,10 @@ export default {
     },
     mounted(){
         axios
-        .get('http://localhost:8000/fiches')
+        .get('http://localhost:3000/api/fiches')
         .then((response) => {
             this.content = response.data;
-            for (let i in this.content){
-                if (this.content[i].id_groupe == 0){
-                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
-                    this.section0.push(result);
-                }
-                if (this.content[i].id_groupe == 1){
-                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
-                    this.section1.push(result);
-                }
-                if (this.content[i].id_groupe == 2){
-                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
-                    this.section2.push(result);
-                }
-                if (this.content[i].id_groupe == 3){
-                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
-                    this.section3.push(result);
-                }
-                if (this.content[i].id_groupe == 4){
-                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
-                    this.section4.push(result);
-                }
-            }
+            console.log(this.content);
         });
     }
 }
