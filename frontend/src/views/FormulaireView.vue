@@ -403,7 +403,7 @@ export default {
             adresse: '',
             date: '',
             registre: '',
-            facebook: false,
+            facebook: null,
             nom_resp1: '',
             adresse_resp1: '',
             tel_resp1: '',
@@ -415,10 +415,10 @@ export default {
             tel_urgence: '',
             tetanos: '',
             groupe_sanguin: '',
-            protection_nuit : false,
-            peur_nuit: false,
-            appareil_dentaire_amovible: false,
-            appareil_auditif: false,
+            protection_nuit : null,
+            peur_nuit: null,
+            appareil_dentaire_amovible: null,
+            appareil_auditif: null,
             diabete: false,
             maladie_cardiaque: false,
             affection_de_la_peau: false,
@@ -502,10 +502,13 @@ export default {
         "sport_difficile": this.activitees_difficiles,
         "remarque_supplementaire": this.remarques_supplementaires,
         "id_groupe": id_groupe
-        }
+      }
+      if((this.nom === '') || (this.prenom === '') || (this.adresse === '') || (this.date === '') || (this.registre === '') || (this.facebook === null) || (this.nom_resp1 === '') || (this.adresse_resp1 === '') || (this.tel_resp1 === '') || (this.email_resp1 === '') || (this.tel_urgence === '') || (this.tetanos === '') || (this.groupe_sanguin === '') || (this.protection_nuit === null) || (this.peur_nuit === null) || (this.appareil_dentaire_amovible === null) || (this.appareil_auditif === null) || (this.nager === '')){
+        alert("Veuillez compléter tous les champs obligatoires !")
+      } else {
       axios
-        .post("http://127.0.0.1:3000/api/fiches", item);
-      console.log(item)
+        .post("http://localhost:3000/api/fiches", item);
+      }
     },
 
     calculerAge(){

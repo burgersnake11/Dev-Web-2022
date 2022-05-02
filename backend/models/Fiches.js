@@ -45,10 +45,10 @@ const ficheSchema = mongoose.Schema({
     maquillage: { type: Boolean, required: true },
     savon: { type: Boolean, required: true },
     poils_animaux: { type: Boolean, required: true },
-    allergie_supplementaire: { type: String, required: true },
+    allergie_supplementaire: { type: String},
     sais_nager: { type: String, required: true },
-    sport_difficile: { type: String, required: true },
-    remarque_supplementaire: { type: String, required: true },
+    sport_difficile: { type: String},
+    remarque_supplementaire: { type: String},
     id_groupe : {type: Number, required: true}
   });
 
