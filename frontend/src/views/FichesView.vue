@@ -2,23 +2,40 @@
   <v-app id="fiche">
     <h1>Fiches Médicales</h1>
     <v-main class="grey lighten-2"> 
-        <v-container fluid>
-            <v-col
-            class="d-flex"
-            cols="12"
-            sm="6"
-            >
-                <v-select
-                v-model="selectedallergie"
-                :items="allergie"
-                item-text="nomallergie"
-                label="allergie"
-                return-object
-                ></v-select>
-            </v-col>
-            <v-btn @click="triage">Valider</v-btn>
-            <v-btn @click="reinitialiser">Réinitialiser</v-btn>
+        <v-container fluid id="allergie">
+            <v-row align="center" justify="center">
+                <v-col
+                class="d-flex"
+                cols="12"
+                sm="6"
+                >
+                    <v-select
+                    v-model="selectedallergie"
+                    :items="allergie"
+                    item-text="nomallergie"
+                    label="Allergie(s)"
+                    return-object
+                    ></v-select>
+
+                    <v-select
+                    v-model="selectedmaladie"
+                    :items="maladie"
+                    item-text="nommaladie"
+                    label="Maladie(s)"
+                    return-object
+                    ></v-select>
+
+                    <v-text-field
+                    v-model="recherche"
+                    label="Rechercher..."
+                    ></v-text-field>
+                </v-col>
+            </v-row>
         </v-container>
+            <v-row justify="center">
+                <v-btn @click="triage">Valider</v-btn>
+                <v-btn @click="reinitialiser">Réinitialiser</v-btn>
+            </v-row>
         <v-flex xs12 sm6 lg9 id="cadre">
                     <v-data-table
                         :headers="groupes[0]"
@@ -77,7 +94,10 @@ export default {
             content: null,
             oui: "test",
             selectedallergie: null,
-            allergie: [{nomallergie: 'asthme'}, {nomallergie: 'peur_nuit'}],
+            selectedmaladie: null,
+            recherche: null,
+            maladie: [{nommaladie: "Diabète", value: "diabete"}, {nommaladie: "Maladie Cardiaque", value: "maladie_cardiaque"}, {nommaladie: "Affection de la peau", value: "affection_peau"}, {nommaladie: "Somnambulisme", value: "somnambulisme"}, {nommaladie: "Insomnie", value: "insomnie"}, {nommaladie: "Incontinence", value: "incontinence"}, {nommaladie: "Eczema", value: "eczema"}, {nommaladie: "Asthme", value: "asthme"}, {nommaladie: "Sinusite", value: "sinusite"}, {nommaladie: "Bronchite", value: "bronchite"}, {nommaladie: "Saignement de nez", value: "saignement_nez"}, {nommaladie: "Maux de tête", value: "maux_tete"}, {nommaladie: "Maux de ventre", value: "maux_ventre"}, {nommaladie: "Constipation", value: "constipation"}, {nommaladie: "Diarrhée", value: "diarrhee"}, {nommaladie: "Vomissements", value: "vomissements"}, {nommaladie: "Mal de route", value: "mal_route"}],
+            allergie: [{nomallergie: 'Acariens', value : 'acariens'}, {nomallergie: 'Pollen', value : 'pollen'}, {nomallergie: 'Soleil', value : 'soleil'}, {nomallergie: 'Maquillage', value: 'maquillage'}, {nomallergie: 'Savon', value: 'savon'}, {nomallergie: "Poils d'animaux", value: "poils_animaux"}],
             groupes: [
                 [{text: "Les Poussins", value: "nom_complet", class: "my-header-style"}],
                 [{text: "Les Benjamines / Benjamins", value: "nom_complet", class:"my-header-style"}],
@@ -124,15 +144,26 @@ export default {
     },
     methods:{
         triage(){
-            let allergie_choisie;
-            if(this.selectedallergie.nomallergie == "asthme"){
-                allergie_choisie = {asthme : true};
+            let query_choisie;
+            if((this.selectedallergie !==null) && (this.selectedmaladie !== null) && (this.recherche !== null)){
+                alert("Veuillez choisir un seul filtre à la fois !");
             }
-            else if(this.selectedallergie.nomallergie == "peur_nuit"){
-                allergie_choisie = {peur_nuit : true};
+            else if((this.selectedallergie !== null) && (this.selectedmaladie ===null) && (this.recherche === null)){
+                query_choisie = {[this.selectedallergie.value] : true};
             }
-            console.log(allergie_choisie)
-            axios.get('http://localhost:3000/api/fiches', {params: allergie_choisie})
+            else if((this.selectedallergie === null) && (this.selectedmaladie !== null) && (this.recherche === null)){
+                query_choisie = {[this.selectedmaladie.value] : true};
+            }
+            else if((this.selectedallergie === null) && (this.selectedmaladie === null) && (this.recherche !== null)){
+                query_choisie = {recherche : this.recherche}
+            }
+            else if((this.selectedallergie === null) && (this.selectedmaladie === null) && (this.recherche === null)){
+                alert("Veuillez choisir un filtre !")
+            }
+            else{
+                alert("Veuillez choisir un seul filtre à la fois !")
+            }
+            axios.get('http://localhost:3000/api/fiches', {params: query_choisie})
             .then((response) => {
                 this.content = response.data;
                 this.section0 = [];
@@ -174,6 +205,9 @@ export default {
                 this.section2 = [];
                 this.section3 = [];
                 this.section4 = [];
+                this.selectedallergie = null;
+                this.selectedmaladie = null;
+                this.recherche = null;
             for (let i in this.content){
                 if (this.content[i].id_groupe == 0){
                     let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
@@ -202,8 +236,15 @@ export default {
 }
 </script>
 <style scoped>
-.allergie{
-    width: 30px;
+#allergie{
+    max-width: 1200px;
+}
+.v-select{
+    margin-right: 20px;
+}
+.v-btn{
+    margin-right: 5px;
+    margin-bottom: 20px;
 }
 #cadre{
     max-width: 1600px;

@@ -40,7 +40,7 @@ exports.login = (req, res, next) => {
               { expiresIn: '24h'}
             )
           }),
-          console.log("connection réussie");
+          console.log("Connexion réussie");
         })
         .catch(error => res.status(500).json({ error }));
     })

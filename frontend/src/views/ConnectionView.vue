@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Connnectez vous !</h1>
+        <h1>Connectez vous !</h1>
             <v-form>
                 <v-text-field
                 v-model="email_compte"
