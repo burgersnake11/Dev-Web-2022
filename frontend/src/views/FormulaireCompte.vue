@@ -56,11 +56,17 @@ export default {
             } else {
                 let user = {
                     email: this.email_compte,
-                    password: this.mdp_compte
+                    password: this.mdp_compte,
+                    status : "Utilisateur"
                 }
                 axios
-                    .post("http://127.0.0.1:3000/api/auth/signup", user);
-                console.log(user)
+                    .post("http://localhost:3000/api/auth/signup", user)
+                    .then((response) => {
+                        let id_parent = response.data.userId
+                        if (response.status == 201) {
+                            this.$router.push('/formulaire'); 
+                        }
+                    })
             }
         }
     }
@@ -70,8 +76,4 @@ export default {
 
 
 <style>
-
 </style>
-
-
-<!-- $v est nécessaire pour vuelidate -->

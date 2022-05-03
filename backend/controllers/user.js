@@ -10,7 +10,8 @@ exports.signup = (req, res, next) => {
     .then(hash => {
       const user = new User({
         email: req.body.email,
-        password: hash
+        password: hash,
+        status: "Utilisateur"
       });
       user.save()
         .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
@@ -34,6 +35,7 @@ exports.login = (req, res, next) => {
           }
           res.status(200).json({
             userId: user._id,
+            status: user.status,
             token: jwt.sign(
               { userId: user._id},
               'RANDOM_TOKEN_SECRET',
@@ -60,4 +62,3 @@ exports.get = (req, res) => {
     }
   );
 };
-

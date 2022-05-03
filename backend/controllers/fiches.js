@@ -9,7 +9,6 @@ exports.TouteLesFiches = (req, res) => {
   let second_filtre = Object.keys(req.query)[1];
   let second_query = Object.values(req.query)[1];
   let second_json = {[second_filtre] : second_query};
-  console.log(second_filtre, second_query)
   if(filtre_query == "recherche"){
     if(second_filtre != undefined){
       Fiches.find({

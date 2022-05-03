@@ -6,6 +6,7 @@ const Fiches = require('./models/Fiches')
 const User = require('./models/User')
 const fichesRoutes = require("./routes/fiches");
 const userRoutes = require("./routes/user");
+const gestUserRoutes = require("./routes/gestion");
 
 
 
@@ -20,6 +21,7 @@ app.use((req, res, next) => {
 app.use(express.json()); //Intercepte toute les requetes qui ont un content type json et le met a dispo dans req.body, donne accès au corps de la requette
 app.use('/api/fiches', fichesRoutes);
 app.use('/api/auth', userRoutes);
+app.use('/api/gestion', gestUserRoutes);
 
 
 //------------------------------------------------------------  Connection DB  ------------------------------------------------------------

@@ -40,9 +40,14 @@ const routes = [
     component: () => import('../views/ConnectionView.vue')
   },
   {
-    path: '/trifiches',
-    name: 'trifiches',
-    component: () => import('../views/TriFiches.vue')
+    path: '/gestion',
+    name: 'gestion',
+    component: () => import('../views/GestionCompte.vue')
+  },
+  {
+    path: '/compte',
+    name: 'compte',
+    component: () => import('../views/CompteView.vue')
   },
 ]
 
