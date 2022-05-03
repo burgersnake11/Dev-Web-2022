@@ -154,8 +154,16 @@ export default {
             else if((this.selectedallergie === null) && (this.selectedmaladie !== null) && (this.recherche === null)){
                 query_choisie = {[this.selectedmaladie.value] : true};
             }
-            else if((this.selectedallergie === null) && (this.selectedmaladie === null) && (this.recherche !== null)){
-                query_choisie = {recherche : this.recherche}
+            else if(this.recherche !== null){
+                if((this.selectedallergie === null) && (this.selectedmaladie === null)){
+                    query_choisie = {recherche : this.recherche}
+                }
+                else if((this.selectedallergie !== null) && (this.selectedmaladie === null)){
+                    query_choisie = {recherche : this.recherche, [this.selectedallergie.value] : true}
+                }
+                else if((this.selectedallergie === null) && (this.selectedmaladie !== null)){
+                    query_choisie = {recherche : this.recherche, [this.selectedmaladie.value] : true}
+                }
             }
             else if((this.selectedallergie === null) && (this.selectedmaladie === null) && (this.recherche === null)){
                 alert("Veuillez choisir un filtre !")
