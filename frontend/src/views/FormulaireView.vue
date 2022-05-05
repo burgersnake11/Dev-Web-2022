@@ -447,11 +447,14 @@ export default {
             activitees_difficiles: '',
             remarques_supplementaires: '',
             id_groupe: 0,
+            content: ''
         }
-  },
+    },
   methods: {
     recupereItem() {
       let id_groupe = this.creerid();
+      let id_parent = this.$route.params.id_parent;
+      let status =  this.$route.params.status;
       let item = {
         "nom_enfant": this.nom,
         "prenom_enfant": this.prenom,
@@ -501,8 +504,10 @@ export default {
         "sais_nager": this.nager,
         "sport_difficile": this.activitees_difficiles,
         "remarque_supplementaire": this.remarques_supplementaires,
-        "id_groupe": id_groupe
+        "id_groupe": id_groupe,
+        "id_parent": id_parent
       }
+      console.log(item);
       if((this.nom === '') || (this.prenom === '') || (this.adresse === '') || (this.date === '') || (this.registre === '') || (this.facebook === null) || (this.nom_resp1 === '') || (this.adresse_resp1 === '') || (this.tel_resp1 === '') || (this.email_resp1 === '') || (this.tel_urgence === '') || (this.tetanos === '') || (this.groupe_sanguin === '') || (this.protection_nuit === null) || (this.peur_nuit === null) || (this.appareil_dentaire_amovible === null) || (this.appareil_auditif === null) || (this.nager === '')){
         alert("Veuillez compléter tous les champs obligatoires !")
       } else {
@@ -510,7 +515,6 @@ export default {
         .post("http://localhost:3000/api/fiches", item);
       }
     },
-
     calculerAge(){
       let date_naissance;
       const date_ajd = new Date();

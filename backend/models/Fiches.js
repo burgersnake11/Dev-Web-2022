@@ -49,7 +49,8 @@ const ficheSchema = mongoose.Schema({
     sais_nager: { type: String, required: true },
     sport_difficile: { type: String},
     remarque_supplementaire: { type: String},
-    id_groupe : {type: Number, required: true}
+    id_groupe : {type: Number, required: true},
+    id_parent: {type: String, required: true}
   });
 
 

@@ -16,7 +16,7 @@
 
                 <v-btn
                 class="mr-4"
-                @click="test"
+                @click="connected"
                 >
                 Me connecter!
                 </v-btn>
@@ -42,27 +42,26 @@ export default {
         }
     },
     methods : {
-        test() {
+        connected() {
             let user = {
-                    email: this.email_compte,
-                    password: this.mdp_compte
-                }
+                email: this.email_compte,
+                password: this.mdp_compte         
+            };
                 axios
                     .post("http://127.0.0.1:3000/api/auth/login", user)
                     .then((response) => {
                         let id_parent = response.data.userId;
                         let status = response.data.status;
                         if (response.status == 200) {
-                            //alert(status);
                             this.$router.push({
                                 name: 'compte',
                                 params : 
-                                {'id_parent' : id_parent, 'status': status}
+                                {'id_parent' : id_parent, 'status': status, 'token': response.data.token}
                             })
                         }
                     })
         },
-        connected() {
+        test() {
             pass
         }
     }
