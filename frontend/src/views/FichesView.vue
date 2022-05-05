@@ -115,7 +115,7 @@ export default {
     },
     mounted(){
         axios
-        .get('http://localhost:3000/api/fiches')
+        .get('http://localhost:3000/api/staff/fiches')
         .then((response) => {
             this.content = response.data;
             for (let i in this.content){
@@ -171,7 +171,7 @@ export default {
             else{
                 alert("Veuillez choisir un seul filtre à la fois !")
             }
-            axios.get('http://localhost:3000/api/fiches', {params: query_choisie})
+            axios.get('http://localhost:3000/api/staff/fiches', {params: query_choisie})
             .then((response) => {
                 this.content = response.data;
                 this.section0 = [];
@@ -205,7 +205,7 @@ export default {
         },
         reinitialiser(){
         axios
-        .get('http://localhost:3000/api/fiches')
+        .get('http://localhost:3000/api/staff/fiches')
         .then((response) => {
             this.content = response.data;
                 this.section0 = [];

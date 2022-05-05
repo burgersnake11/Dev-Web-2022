@@ -50,7 +50,8 @@ const ficheSchema = mongoose.Schema({
     sport_difficile: { type: String},
     remarque_supplementaire: { type: String},
     id_groupe : {type: Number, required: true},
-    id_parent: {type: String, required: true}
+    id_parent: {type: String, required: true},
+    payer: {type: Boolean, required: true}
   });
 
 

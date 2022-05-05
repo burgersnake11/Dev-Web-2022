@@ -4,11 +4,9 @@ const app = express(); //permet de créer une application express, qui va recevo
 
 const Fiches = require('./models/Fiches')
 const User = require('./models/User')
-const fichesRoutes = require("./routes/fiches");
+const fichesRoutes = require("./routes/staff");
 const userRoutes = require("./routes/user");
 const gestUserRoutes = require("./routes/gestion");
-
-
 
 //------------------------------------------------------------  CORS  ------------------------------------------------------------
 app.use((req, res, next) => {
@@ -19,7 +17,7 @@ app.use((req, res, next) => {
 }); 
   
 app.use(express.json()); //Intercepte toute les requetes qui ont un content type json et le met a dispo dans req.body, donne accès au corps de la requette
-app.use('/api/fiches', fichesRoutes);
+app.use('/api/staff', fichesRoutes);
 app.use('/api/auth', userRoutes);
 app.use('/api/gestion', gestUserRoutes);
 
