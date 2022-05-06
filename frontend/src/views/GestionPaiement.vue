@@ -35,7 +35,7 @@
         <v-spacer></v-spacer>
       </v-toolbar>
     </template>
-    <template  v-slot:item.actions="{ item }" >
+    <template  v-slot:[`item.actions`]="{ item }" >
       <v-checkbox
         v-model="checked[item.id-1]"
         @change="test(item)"
