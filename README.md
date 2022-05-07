@@ -1,4 +1,4 @@
-# gestion_patro
+# frontend
 
 ## Project setup
 ```

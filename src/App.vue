@@ -1,49 +1,15 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer
-      v-model="drawer"
-      app
-      class="nav"
-    >
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title class="text-h6">
-            Bienvenue {{ nom }}
-          </v-list-item-title>
-          <v-list-item-subtitle>
-            {{statut}}
-          </v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
-
-      <v-divider></v-divider>
-
-      <v-list
-        dense
-        nav
-      >
-        <v-list-item
-          v-for="item in items"
-          :key="item.title"
-          :to="item.to"
-          link
-        >
-          <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
 
     <v-app-bar app>
-      <v-icon @click="drawer = !drawer">{{profil}}</v-icon>
-      <v-btn :to='accueil'>Accueil</v-btn>
-      <v-btn :to='contact'>Staff</v-btn>
-      <v-btn :to='accueil'>Blog</v-btn>
+      <v-btn :to='"/"' class="button">Accueil</v-btn>
+      <v-btn :to='"/staff"' class="button">Staff</v-btn>
+      <v-btn :to='accueil' class="button">Blog</v-btn>
+      <v-btn :to='"/contact"' class="button">Contact</v-btn>
+      <v-btn :to='"/formulaire"' class="button">Formulaire</v-btn>
+      <v-btn :to='"/creation"' class="button">Compte</v-btn>
+      <v-btn :to='"/gestion"' class="button">Gestion</v-btn>
+      <v-btn :to='"/paiement"' class="button">Paiement</v-btn>
 
     </v-app-bar>
 
@@ -58,9 +24,6 @@
     data: () => ({
       drawer: null,
       items: [
-          { title: 'Compte', icon: 'mdi-account-box', to: '/compte'},
-          { title: 'Fiches Médicales', icon: 'mdi-image', to:  '/fiches'},
-          { title: 'Contact', icon: 'mdi-help-box', to: '/contact' }
         ],
       nom: "Margaret",
       statut: "Connecté(e)",
@@ -69,6 +32,8 @@
     }),
   }
 </script>
-<style>
 
-</style>
+<style>
+.button {
+  background-color: red;
+}
