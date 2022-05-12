@@ -91,6 +91,7 @@ export default {
     ic: "mdi-book",
     data(){
         return{
+            el : '#cadre',
             content: null,
             oui: "test",
             selectedallergie: null,
@@ -114,6 +115,11 @@ export default {
         }
     },
     mounted(){
+        this.$el.querySelector("#poussin").style.background = '#82e0aa';
+        this.$el.querySelector("#benjamins").style.background = '#f7dc6f';
+        this.$el.querySelector("#chevaliers").style.background = '#f8c471';
+        this.$el.querySelector("#conquerants").style.background = '#ec7063';
+        this.$el.querySelector("#aventuriers").style.background = '#bb8fce';
         axios
         .get('http://localhost:3000/api/staff/fiches')
         .then((response) => {
@@ -147,6 +153,7 @@ export default {
             let query_choisie;
             if((this.selectedallergie !==null) && (this.selectedmaladie !== null) && (this.recherche !== null)){
                 alert("Veuillez choisir un seul filtre à la fois !");
+                return;
             }
             else if((this.selectedallergie !== null) && (this.selectedmaladie ===null) && (this.recherche === null)){
                 query_choisie = {[this.selectedallergie.value] : true};
@@ -167,9 +174,11 @@ export default {
             }
             else if((this.selectedallergie === null) && (this.selectedmaladie === null) && (this.recherche === null)){
                 alert("Veuillez choisir un filtre !")
+                return;
             }
             else{
-                alert("Veuillez choisir un seul filtre à la fois !")
+                alert("Veuillez choisir un seul filtre à la fois !");
+                return;
             }
             axios.get('http://localhost:3000/api/staff/fiches', {params: query_choisie})
             .then((response) => {
@@ -179,31 +188,73 @@ export default {
                 this.section2 = [];
                 this.section3 = [];
                 this.section4 = [];
+                let tousid = [];
                 for (let i in this.content){
-                if (this.content[i].id_groupe == 0){
-                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
-                    this.section0.push(result);
+                    tousid.push(this.content[i].id_groupe);
+                    if (this.content[i].id_groupe == 0){
+                        let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                        this.section0.push(result);
+                    }
+                    if (this.content[i].id_groupe == 1){
+                        let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                        this.section1.push(result);
+                    }
+                    if (this.content[i].id_groupe == 2){
+                        let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                        this.section2.push(result);
+                    }
+                    if (this.content[i].id_groupe == 3){
+                        let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                        this.section3.push(result);
+                    }
+                    if (this.content[i].id_groupe == 4){
+                        let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                        this.section4.push(result);
+                    }
                 }
-                if (this.content[i].id_groupe == 1){
-                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
-                    this.section1.push(result);
+                for(let i = 0; i <= 4; i++){
+                    if(!(tousid.includes(i))){
+                        if(i == 0){
+                            this.$el.querySelector("#poussin").style.background = 'white';
+                        }
+                        if(i == 1){
+                            this.$el.querySelector("#benjamins").style.background = 'white';
+                        }
+                        if(i == 2){
+                            this.$el.querySelector("#chevaliers").style.background = 'white';
+                        }
+                        if(i == 3){
+                            this.$el.querySelector("#conquerants").style.background = 'white';
+                        }
+                        if(i == 4){
+                            this.$el.querySelector("#aventuriers").style.background = 'white';
+                        }
+                    } else {
+                        if(i == 0){
+                            this.$el.querySelector("#poussin").style.background = '#82e0aa';
+                        }
+                        if(i == 1){
+                            this.$el.querySelector("#benjamins").style.background = '#f7dc6f';
+                        }
+                        if(i == 2){
+                            this.$el.querySelector("#chevaliers").style.background = '#f8c471';
+                        }
+                        if(i == 3){
+                            this.$el.querySelector("#conquerants").style.background = '#ec7063';
+                        }
+                        if(i == 4){
+                            this.$el.querySelector("#aventuriers").style.background = '#bb8fce';
+                        }
+                    }
                 }
-                if (this.content[i].id_groupe == 2){
-                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
-                    this.section2.push(result);
-                }
-                if (this.content[i].id_groupe == 3){
-                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
-                    this.section3.push(result);
-                }
-                if (this.content[i].id_groupe == 4){
-                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
-                    this.section4.push(result);
-                }
-            }
             })
         },
         reinitialiser(){
+        this.$el.querySelector("#poussin").style.background = '#82e0aa';
+        this.$el.querySelector("#benjamins").style.background = '#f7dc6f';
+        this.$el.querySelector("#chevaliers").style.background = '#f8c471';
+        this.$el.querySelector("#conquerants").style.background = '#ec7063';
+        this.$el.querySelector("#aventuriers").style.background = '#bb8fce';
         axios
         .get('http://localhost:3000/api/staff/fiches')
         .then((response) => {
@@ -263,19 +314,19 @@ export default {
     margin: auto;
 }
 #poussin{
-    background-color:   #82e0aa;
+    background-color:   #fff;
     width: 300px;
 }
 #benjamins{
-    background-color:  #f7dc6f ;
+    background-color:  #fff ;
 }
 #chevaliers{
-    background-color:  #f8c471 ;
+    background-color:  #fff ;
 }
 #conquerants{
-    background-color:  #ec7063 ;
+    background-color:  #fff ;
 }
 #aventuriers{
-    background-color:  #bb8fce ;
+    background-color:  #fff ;
 }
 </style>
