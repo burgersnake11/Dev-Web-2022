@@ -43,6 +43,7 @@
                         :expand-icon="oui"
                         :items-per-page="5"
                         class="elevation-8"
+                        @click:row="fiche"
                         id="poussin"          
                     >
                     </v-data-table>
@@ -51,6 +52,7 @@
                         :items="section1"
                         :items-per-page="5"
                         class="elevation-8"
+                        @click:row="fiche"                        
                         id="benjamins"
                     >
                     </v-data-table>
@@ -59,6 +61,7 @@
                         :items="section2"
                         :items-per-page="5"
                         class="elevation-8"
+                        @click:row="fiche"
                         id="chevaliers"
 
                     >
@@ -68,6 +71,7 @@
                         :items="section3"
                         :items-per-page="5"
                         class="elevation-8"
+                        @click:row="fiche"
                         id="conquerants"
                     >
                     </v-data-table>
@@ -76,9 +80,10 @@
                         :items="section4"
                         :items-per-page="5"
                         class="elevation-8"
+                        @click:row="fiche"
                         id="aventuriers"
                     >
-                    </v-data-table>
+                </v-data-table>
         </v-flex>
     </v-main>
   </v-app>
@@ -111,6 +116,7 @@ export default {
             section2: [],
             section3: [],
             section4: [],
+            id_enfant: [],
             colors: ["green", "yellow", "red", "purple","blue"]
         }
     },
@@ -126,29 +132,34 @@ export default {
             this.content = response.data;
             for (let i in this.content){
                 if (this.content[i].id_groupe == 0){
-                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant, id : this.content[i]._id};
                     this.section0.push(result);
                 }
                 if (this.content[i].id_groupe == 1){
-                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant, id : this.content[i]._id};
                     this.section1.push(result);
                 }
                 if (this.content[i].id_groupe == 2){
-                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant, id : this.content[i]._id};
                     this.section2.push(result);
                 }
                 if (this.content[i].id_groupe == 3){
-                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant, id : this.content[i]._id};
                     this.section3.push(result);
                 }
                 if (this.content[i].id_groupe == 4){
-                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant, id : this.content[i]._id};
                     this.section4.push(result);
                 }
             }
         });
     },
     methods:{
+        fiche(value){
+            this.$router.push({
+            path : `staff/${value.id}`
+            })
+        },
         triage(){
             let query_choisie;
             if((this.selectedallergie !==null) && (this.selectedmaladie !== null) && (this.recherche !== null)){
@@ -192,23 +203,23 @@ export default {
                 for (let i in this.content){
                     tousid.push(this.content[i].id_groupe);
                     if (this.content[i].id_groupe == 0){
-                        let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                        let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant, id : this.content[i]._id};
                         this.section0.push(result);
                     }
                     if (this.content[i].id_groupe == 1){
-                        let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                        let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant, id : this.content[i]._id};
                         this.section1.push(result);
                     }
                     if (this.content[i].id_groupe == 2){
-                        let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                        let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant, id : this.content[i]._id};
                         this.section2.push(result);
                     }
                     if (this.content[i].id_groupe == 3){
-                        let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                        let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant, id : this.content[i]._id};
                         this.section3.push(result);
                     }
                     if (this.content[i].id_groupe == 4){
-                        let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                        let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant, id : this.content[i]._id};
                         this.section4.push(result);
                     }
                 }
@@ -269,23 +280,23 @@ export default {
                 this.recherche = null;
             for (let i in this.content){
                 if (this.content[i].id_groupe == 0){
-                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant, id : this.content[i]._id};
                     this.section0.push(result);
                 }
                 if (this.content[i].id_groupe == 1){
-                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant, id : this.content[i]._id};
                     this.section1.push(result);
                 }
                 if (this.content[i].id_groupe == 2){
-                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant, id : this.content[i]._id};
                     this.section2.push(result);
                 }
                 if (this.content[i].id_groupe == 3){
-                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant, id : this.content[i]._id};
                     this.section3.push(result);
                 }
                 if (this.content[i].id_groupe == 4){
-                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+                    let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant, id : this.content[i]._id};
                     this.section4.push(result);
                 }
             }
