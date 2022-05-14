@@ -53,7 +53,7 @@
       headers: [
         {text: "Id",value: 'id'},
         {
-          text: 'Nom du compte',
+          text: "Nom de l'enfant",
           align: 'start',
           sortable: false,
           value: 'nom',

@@ -4,7 +4,7 @@ exports.gestionUser = (req, res) => {
   let filtre_query = Object.keys(req.query)[0];
   let query_filtre = Object.values(req.query)[0];
   if(filtre_query == "recherche"){
-    User.find({email: {$regex : new RegExp(query_filtre, "i")}}).then(
+    User.find({$or: [{nom: {$regex : new RegExp(query_filtre, "i")}}, {prenom : {$regex : new RegExp(query_filtre, "i")}}, {email: {$regex : new RegExp(query_filtre, "i")}}]}).then(
       (test) => {
         res.status(200).json(test);
       }

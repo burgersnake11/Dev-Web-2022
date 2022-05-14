@@ -2,6 +2,23 @@
     <div>
         <h1>Créer votre compte!</h1>
             <v-form>
+                <v-row>
+                    <v-col>
+                        <v-text-field
+                        v-model="nom_compte"
+                        label="Nom du parent"
+                        required
+                        ></v-text-field>
+                    </v-col>
+                    <v-col>
+                        <v-text-field
+                        v-model="prenom_compte"
+                        label="Prénom du parent"
+                        required
+                        ></v-text-field>
+                    </v-col>
+                </v-row>
+
                 <v-text-field
                 v-model="email_compte"
                 label="Adresse Email"
@@ -43,6 +60,8 @@ import axios from 'axios'
 export default {
     data() {
         return {
+            nom_compte: '',
+            prenom_compte: '',
             email_compte: '',
             mdp_compte: '',
             mdp_compte2: '',
@@ -55,6 +74,8 @@ export default {
                 alert("Les deux mots de passe ne sont pas identiques");
             } else {
                 let user = {
+                    nom : this.nom_compte,
+                    prenom: this.prenom_compte,
                     email: this.email_compte,
                     password: this.mdp_compte,
                     status : "Utilisateur"

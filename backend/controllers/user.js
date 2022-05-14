@@ -1,14 +1,17 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const User = require('../models/User');
 
+const User = require('../models/User');
+const app = require("../app");
 
 
 exports.signup = (req, res, next) => {
   bcrypt.hash(req.body.password, 10)
     .then(hash => {
       const user = new User({
+        nom: req.body.nom,
+        prenom : req.body.prenom,
         email: req.body.email,
         password: hash,
         status: "Utilisateur"
@@ -20,7 +23,7 @@ exports.signup = (req, res, next) => {
     .catch(error => res.status(500).json({ error }));
 };
 
-exports.login = (req, res, next) => {
+exports.login = (req, res) => {
   User.findOne({ email: req.body.email })
     .then(user => {
       if (!user) {
@@ -33,6 +36,9 @@ exports.login = (req, res, next) => {
             console.log("Mot de passe incorrect !")
             return res.status(401).json({ error: 'Mot de passe incorrect !' });
           }
+          let userId = user._id;
+          let status =  user.status;
+          
           res.status(200).json({
             userId: user._id,
             status: user.status,
@@ -41,7 +47,8 @@ exports.login = (req, res, next) => {
               'RANDOM_TOKEN_SECRET',
               { expiresIn: '24h'}
             )
-          })
+          });
+          console.log(userId);
         })
         .catch(error => res.status(500).json({ error }));
     })

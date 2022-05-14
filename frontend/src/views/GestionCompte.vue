@@ -93,6 +93,8 @@
       dialog: false,
       recherche: null,
       headers: [
+        { text : 'Nom du compte', value: 'nom'},
+        { text : 'Prénom du compte', value: 'prenom'},
         {
           text: 'Email du compte',
           align: 'start',
@@ -134,6 +136,8 @@
             this.content = response.data;
             for (let i in this.content){
                 let j={
+                    nom : this.content[i].nom,
+                    prenom : this.content[i].prenom,
                     email: this.content[i].email,
                     status: this.content[i].status,
                 }
@@ -155,6 +159,8 @@
             this.comptes=[]
             for (let i in this.content){
                 let j={
+                    nom : this.content[i].nom,
+                    prenom : this.content[i].prenom,
                     email: this.content[i].email,
                     status: this.content[i].status,
                 }
