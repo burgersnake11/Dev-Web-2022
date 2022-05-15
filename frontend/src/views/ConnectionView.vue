@@ -52,6 +52,8 @@ export default {
                     .then((response) => {
                         let id_parent = response.data.userId;
                         let status = response.data.status;
+                        let token = response.data.token
+                        axios.defaults.headers.common['Authorization'] = `Bearer ` + token
                         if (response.status == 200) {
                             this.$router.push({
                                 name: 'compte',

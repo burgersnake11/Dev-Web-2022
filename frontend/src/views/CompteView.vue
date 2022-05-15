@@ -15,6 +15,10 @@
       <h1>Inscrire un enfant?</h1>
       <v-btn @click="inscription">Inscrire un enfant?</v-btn>
     </div>
+    <div>
+      <h1>Se déconnecter</h1>
+      <v-btn @click="deconnexion">Se déconnecter</v-btn>
+    </div>
     </v-app>
 </template>
 
@@ -24,6 +28,7 @@ export default {
     data() {
         return {
           content: '',
+          id_parent: '',
           fiches_enfants: [],
           enfants_parents: [{
             text: 'Nom des enfants',
@@ -34,11 +39,22 @@ export default {
         }
     },
     mounted() {
-      let id_parent = this.$route.params.id_parent;
-      let token = this.$route.params.token;
+      let authHeader = axios.defaults.headers.common['Authorization']
+      if(authHeader){
+        let token = authHeader.split('Bearer ')[1];
+        var base64Url = token.split('.')[1];
+          var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+          var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+              return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+          }).join(''));
+          let userConnected = JSON.parse(jsonPayload);
+          this.id_parent = userConnected.userId
+      } else {
+        return ("Utilisteur pas connecté")
+      }
       this.compte = [];
-      if(id_parent !== undefined){
-        let parent_json = {id_parent : id_parent};
+      if(this.id_parent !== undefined){
+        let parent_json = {id_parent : this.id_parent};
         axios
         .get("http://localhost:3000/api/staff/fiches", {params :parent_json})
         .then((response) => {
@@ -66,8 +82,8 @@ export default {
               {'id_parent' : id_parent, 'status': status}
           }) 
         },
-        test() {
-  
+        deconnexion() {
+          window.location.reload()
         }
     }
 }

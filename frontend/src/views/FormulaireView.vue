@@ -447,13 +447,26 @@ export default {
             activitees_difficiles: '',
             remarques_supplementaires: '',
             id_groupe: 0,
-            content: ''
+            content: '',
+            id_parent: ''
         }
     },
   methods: {
     recupereItem() {
+      let authHeader = axios.defaults.headers.common['Authorization']
+      if(authHeader){
+        let token = authHeader.split('Bearer ')[1];
+        var base64Url = token.split('.')[1];
+          var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+          var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+              return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+          }).join(''));
+          let userConnected = JSON.parse(jsonPayload);
+          this.id_parent = userConnected.userId
+      } else {
+        return ("Utilisteur pas connecté")
+      }
       let id_groupe = this.creerid();
-      let id_parent = this.$route.params.id_parent;
       let status =  this.$route.params.status;
       let item = {
         "nom_enfant": this.nom,
@@ -505,7 +518,7 @@ export default {
         "sport_difficile": this.activitees_difficiles,
         "remarque_supplementaire": this.remarques_supplementaires,
         "id_groupe": id_groupe,
-        "id_parent": id_parent,
+        "id_parent": this.id_parent,
         "payer": false,
       }
       if((this.nom === '') || (this.prenom === '') || (this.adresse === '') || (this.date === '') || (this.registre === '') || (this.facebook === null) || (this.nom_resp1 === '') || (this.adresse_resp1 === '') || (this.tel_resp1 === '') || (this.email_resp1 === '') || (this.tel_urgence === '') || (this.tetanos === '') || (this.groupe_sanguin === '') || (this.protection_nuit === null) || (this.peur_nuit === null) || (this.appareil_dentaire_amovible === null) || (this.appareil_auditif === null) || (this.nager === '')){
