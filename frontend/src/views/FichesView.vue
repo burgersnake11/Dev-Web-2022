@@ -127,7 +127,7 @@ export default {
         this.$el.querySelector("#conquerants").style.background = '#ec7063';
         this.$el.querySelector("#aventuriers").style.background = '#bb8fce';
         axios
-        .get('http://localhost:3000/api/staff/fiches')
+        .get('https://localhost:3000/api/staff/fiches')
         .then((response) => {
             this.content = response.data;
             for (let i in this.content){
@@ -191,7 +191,7 @@ export default {
                 alert("Veuillez choisir un seul filtre à la fois !");
                 return;
             }
-            axios.get('http://localhost:3000/api/staff/fiches', {params: query_choisie})
+            axios.get('https://localhost:3000/api/staff/fiches', {params: query_choisie})
             .then((response) => {
                 this.content = response.data;
                 this.section0 = [];
@@ -267,7 +267,7 @@ export default {
         this.$el.querySelector("#conquerants").style.background = '#ec7063';
         this.$el.querySelector("#aventuriers").style.background = '#bb8fce';
         axios
-        .get('http://localhost:3000/api/staff/fiches')
+        .get('https://localhost:3000/api/staff/fiches')
         .then((response) => {
             this.content = response.data;
                 this.section0 = [];

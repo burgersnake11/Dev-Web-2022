@@ -1,5 +1,11 @@
-const http = require('http');
+const fs = require('fs');
+const https = require('https');
 const app = require('./app');
+
+const options = {
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem')
+};
 
 const normalizePort = val => { //a fonction normalizePort renvoie un port valide, qu'il soit fourni sous la forme d'un numéro ou d'une chaîne
   const port = parseInt(val, 10);
@@ -35,7 +41,7 @@ const errorHandler = error => {
   }
 };
 
-const server = http.createServer(app); //fonction appelée a chaque requetes
+const server = https.createServer(options, app); //fonction appelée a chaque requetes
 
 server.on('error', errorHandler);
 server.on('listening', () => { //un écouteur d'évènements est également enregistré, consignant le port ou le canal nommé sur lequel le serveur s'exécute dans la console

@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require("mongoose");
 const app = express(); //permet de créer une application express, qui va recevoir les requetes
+const https = require('https')
 
 const Fiches = require('./models/Fiches')
 const User = require('./models/User')
@@ -20,7 +21,6 @@ app.use(express.json()); //Intercepte toute les requetes qui ont un content type
 app.use('/api/staff', fichesRoutes);
 app.use('/api/auth', userRoutes);
 app.use('/api/gestion', gestUserRoutes);
-
 
 //------------------------------------------------------------  Connection DB  ------------------------------------------------------------
 var url = "mongodb+srv://Mathieu:J0uec581OeHWuz8j@cluster0.3dozm.mongodb.net/Dev3?retryWrites=true&w=majority" //URL de la base de données

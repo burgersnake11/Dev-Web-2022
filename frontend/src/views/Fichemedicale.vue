@@ -62,7 +62,7 @@ export default {
   mounted(){
       let query = {_id : this.$route.params.id};
       axios
-        .get('http://localhost:3000/api/staff/fiches', {params : query})
+        .get('https://localhost:3000/api/staff/fiches', {params : query})
         .then(response => {
             this.content = response.data[0]
             this.prenom = this.content.prenom_enfant

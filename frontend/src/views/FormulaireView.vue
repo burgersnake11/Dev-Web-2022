@@ -467,6 +467,7 @@ export default {
         return ("Utilisteur pas connecté")
       }
       let id_groupe = this.creerid();
+      console.log(id_groupe)
       let status =  this.$route.params.status;
       let item = {
         "nom_enfant": this.nom,
@@ -523,18 +524,34 @@ export default {
       }
       if((this.nom === '') || (this.prenom === '') || (this.adresse === '') || (this.date === '') || (this.registre === '') || (this.facebook === null) || (this.nom_resp1 === '') || (this.adresse_resp1 === '') || (this.tel_resp1 === '') || (this.email_resp1 === '') || (this.tel_urgence === '') || (this.tetanos === '') || (this.groupe_sanguin === '') || (this.protection_nuit === null) || (this.peur_nuit === null) || (this.appareil_dentaire_amovible === null) || (this.appareil_auditif === null) || (this.nager === '')){
         alert("Veuillez compléter tous les champs obligatoires !")
+        return
+      } else if((!(this.verifierDate(this.date))) || (!(this.verifierDate(this.tetanos)))){
+        alert("Les dates entrées ne conviennent pas !")
+        return
+      } else if(id_groupe == 5){
+        alert("Enfant trop jeune/vieux pour être inscrit !")
+        return
       } else {
-      axios
-        .post("http://localhost:3000/api/staff/fiches", item)
+        axios
+        .post("https://localhost:3000/api/staff/fiches", item)
         .then((res) => {
           if(res.status == 201){
+            alert("Enfant créé !")
             this.$router.push({
               name :'compte',
-              params : {'id_parent' : id_parent, 'status' : status}
             })
           }
         })
       }
+    },
+    verifierDate(dateverif){
+      const date_jour = new Date();
+      dateverif = new Date(dateverif);
+      let diff = date_jour.getTime() - dateverif.getTime();
+      if (diff < 0){
+        return false
+      }
+      return true
     },
     calculerAge(){
       let date_naissance;
@@ -566,29 +583,33 @@ export default {
     creerid(){
       let age_enfant = this.calculerAge();
       let id_groupe;
+      console.log(age_enfant)
 
-      if(4 < age_enfant && age_enfant <= 6){
+      if(age_enfant < 5 || age_enfant > 16){
+        id_groupe = 5
+        return id_groupe
+      }
+      else if(5 <= age_enfant && age_enfant <= 6){
         id_groupe = 0
         return id_groupe
       }
-      else if(age_enfant <= 8){
+      else if(age_enfant > 6 && age_enfant <= 8){
         id_groupe = 1
         return id_groupe
       }
-      else if(age_enfant <= 12){
+      else if(age_enfant > 8 && age_enfant <= 12){
         id_groupe = 2
         return id_groupe
       }
-      else if(age_enfant <= 14){
+      else if(age_enfant > 12 && age_enfant <= 14){
         id_groupe = 3
         return id_groupe
       }
-      else{
+      else if(age_enfant > 14 && age_enfant <= 16){
         id_groupe = 4
         return id_groupe
-      }
+      } 
     }
-
   }
 }
 </script>

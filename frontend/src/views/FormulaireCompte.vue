@@ -81,7 +81,7 @@ export default {
                     status : "Utilisateur"
                 }
                 axios
-                    .post("http://localhost:3000/api/auth/signup", user)
+                    .post("https://localhost:3000/api/auth/signup", user)
                     .then((response) => {
                         let id_parent = response.data.userId
                         if (response.status == 201) {

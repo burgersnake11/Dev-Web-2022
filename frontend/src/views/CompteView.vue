@@ -56,7 +56,7 @@ export default {
       if(this.id_parent !== undefined){
         let parent_json = {id_parent : this.id_parent};
         axios
-        .get("http://localhost:3000/api/staff/fiches", {params :parent_json})
+        .get("https://localhost:3000/api/staff/fiches", {params :parent_json})
         .then((response) => {
           this.content = response.data;
           this.fiches_enfants;

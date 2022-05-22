@@ -131,7 +131,7 @@
     initialize () {
         this.comptes = [];
         axios
-        .get('http://localhost:3000/api/gestion/users')
+        .get('https://localhost:3000/api/gestion/users')
         .then((response) => {
             this.content = response.data;
             for (let i in this.content){
@@ -153,7 +153,7 @@
         else if(this.recherche === null){
             alert("Veuillez choisir un filtre !")
         }
-        axios.get('http://localhost:3000/api/gestion/users', {params: query_choisie})
+        axios.get('https://localhost:3000/api/gestion/users', {params: query_choisie})
         .then((response) => {
             this.content = response.data;
             this.comptes=[]
@@ -187,7 +187,7 @@
             status : this.editedItem.status
         }
         axios
-            .post("http://localhost:3000/api/gestion/update", compte_json);
+            .post("https://localhost:3000/api/gestion/update", compte_json);
         this.close()
       },
     },
