@@ -9,7 +9,13 @@ describe('Login', () => {
         .post('/api/auth/login')
         .send({ email: 'lgc.carlier@gmail.com', password:  'Logan'});
 
+        expect(res.statusCode).toEqual(200);
+    }),
+    it('retourne false if the authentification is incorrect', async () => {
+        const res = await request(app)
+        .post('/api/auth/login')
+        .send({ email: 'lgc.carli.com', password:  'Logan'});
+
         expect(res.statusCode).toEqual(401);
     });
-
 });

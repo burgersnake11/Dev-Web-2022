@@ -128,20 +128,3 @@ exports.PayerAffiliation = (req, res) => {
     .then((test) => res.status(201).json(test))
     .catch(error => res.status(400).json({ error }));
 };
-
-
-
-function validateEmail(emailAdress)
-{
-  let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-  if (emailAdress.match(regexEmail)) {
-    return true; 
-  } else {
-    return false; 
-  }
-}
-
-
-module.exports = {
-  validateEmail
-}

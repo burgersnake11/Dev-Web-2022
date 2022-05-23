@@ -1,13 +1,13 @@
 <template>
   <v-app id="background">
     <v-main id="body">
-      <div>
+      <div id="bienvenue">
         Bienvenu sur le site web du patro de marbais !
       </div>
       <div>
         Horaire : Samedi de 13h15 à 17h00
       </div>
-      <div width=33%>
+      <div class='pink' id='first'>
         Pour toucher un petit mot sur le Patro :
 
         <br>
@@ -25,173 +25,67 @@
         <br>
 
         Le Patro de Marbais se fera une joie d’accueillir tout nouvel arrivant.
+      </div>
+      <div class="orange">
+        <h2>CALENDRIER</h2>
+          /!\ Au vu des circonstances actuelles,
 
-        <br>
-                Pour toucher un petit mot sur le Patro :
+          nous sommes dépendants des décisions des autorités compétentes. Il est possible que des modifications ou annulations doivent être faites.
 
-        <br>
+          <h3>JANVIER</h3>
+          1 : Pas Patro
 
-        Le Patro, ce sont plus de 22 000 enfants et jeunes (âgés de 5 à 16 ans) qui se retrouvent chaque semaine pour animer ou participer à des activités multiples.
+          8 : Pas Patro 
 
-        <br> 
+          15 : Pas Patro
 
-        Le Patro, ce sont des animatrices et animateurs bénévoles qui s’engagent, prennent des responsabilités et participent à une société plus solidaire. Ils consacrent de nombreuses heures à cette passion et se forment pour offrir une animation de qualité.
+          22 : Pas Patro
 
-        <br> 
+          29 : Reprise Patro
 
-        Le Patro, c’est un lieu d’épanouissement où l’on peut découvrir, grandir et devenir un CRACS: une citoyenne ou un citoyen responsable, actif,critique et solidaire.
+          <h3>FEVRIER</h3>
 
-        <br>
+          4-5-6 : Hikes Poussins et AC-Av
 
-        Le Patro de Marbais se fera une joie d’accueillir tout nouvel arrivant.
+          5 : Patro normal
 
-        <br>
-  
-          Pour toucher un petit mot sur le Patro :
+          11-12-13 : Hike EC
 
-        <br>
+          12 : Patro normal 
 
-        Le Patro, ce sont plus de 22 000 enfants et jeunes (âgés de 5 à 16 ans) qui se retrouvent chaque semaine pour animer ou participer à des activités multiples.
+          19 : Patro normal
 
-        <br> 
+          26 : Patro normal
 
-        Le Patro, ce sont des animatrices et animateurs bénévoles qui s’engagent, prennent des responsabilités et participent à une société plus solidaire. Ils consacrent de nombreuses heures à cette passion et se forment pour offrir une animation de qualité.
+          <h3>MARS</h3>
 
-        <br> 
+          5 : Pas Patro (congé de Carnaval)
 
-        Le Patro, c’est un lieu d’épanouissement où l’on peut découvrir, grandir et devenir un CRACS: une citoyenne ou un citoyen responsable, actif,critique et solidaire.
+          12 : Patro normal
 
-        <br>
+          19 : Fête du Patro
 
-        Le Patro de Marbais se fera une joie d’accueillir tout nouvel arrivant.
+          27: Challenge Patro
 
-        <br>
-  
-          Pour toucher un petit mot sur le Patro :
+          <h3>AVRIL</h3>
 
-        <br>
+          2 : Patro normal
 
-        Le Patro, ce sont plus de 22 000 enfants et jeunes (âgés de 5 à 16 ans) qui se retrouvent chaque semaine pour animer ou participer à des activités multiples.
+          9 : Pas Patro (congé de printemps)
 
-        <br> 
+          16 : Pas Patro (congé de printemps)
 
-        Le Patro, ce sont des animatrices et animateurs bénévoles qui s’engagent, prennent des responsabilités et participent à une société plus solidaire. Ils consacrent de nombreuses heures à cette passion et se forment pour offrir une animation de qualité.
+          22-23-24 Hike tous ensemble
 
-        <br> 
+          <h3>MAI</h3>
 
-        Le Patro, c’est un lieu d’épanouissement où l’on peut découvrir, grandir et devenir un CRACS: une citoyenne ou un citoyen responsable, actif,critique et solidaire.
+          <h3>JUIN</h3>
 
-        <br>
+          Pas Patro sauf activité surprise fin juin
 
-        Le Patro de Marbais se fera une joie d’accueillir tout nouvel arrivant.
+          <h3>JUILLET</h3>
 
-        <br>
-
-        Le Patro, ce sont plus de 22 000 enfants et jeunes (âgés de 5 à 16 ans) qui se retrouvent chaque semaine pour animer ou participer à des activités multiples.
-
-        <br> 
-
-        Le Patro, ce sont des animatrices et animateurs bénévoles qui s’engagent, prennent des responsabilités et participent à une société plus solidaire. Ils consacrent de nombreuses heures à cette passion et se forment pour offrir une animation de qualité.
-
-        <br> 
-
-        Le Patro, c’est un lieu d’épanouissement où l’on peut découvrir, grandir et devenir un CRACS: une citoyenne ou un citoyen responsable, actif,critique et solidaire.
-
-        <br>
-
-        Le Patro de Marbais se fera une joie d’accueillir tout nouvel arrivant.
-
-        <br>
-  
-          Pour toucher un petit mot sur le Patro :
-
-        <br>
-
-        Le Patro, ce sont plus de 22 000 enfants et jeunes (âgés de 5 à 16 ans) qui se retrouvent chaque semaine pour animer ou participer à des activités multiples.
-
-        <br> 
-
-        Le Patro, ce sont des animatrices et animateurs bénévoles qui s’engagent, prennent des responsabilités et participent à une société plus solidaire. Ils consacrent de nombreuses heures à cette passion et se forment pour offrir une animation de qualité.
-
-        <br> 
-
-        Le Patro, c’est un lieu d’épanouissement où l’on peut découvrir, grandir et devenir un CRACS: une citoyenne ou un citoyen responsable, actif,critique et solidaire.
-
-        <br>
-
-        Le Patro de Marbais se fera une joie d’accueillir tout nouvel arrivant.
-<br>
-
-        Le Patro, ce sont plus de 22 000 enfants et jeunes (âgés de 5 à 16 ans) qui se retrouvent chaque semaine pour animer ou participer à des activités multiples.
-
-        <br> 
-
-        Le Patro, ce sont des animatrices et animateurs bénévoles qui s’engagent, prennent des responsabilités et participent à une société plus solidaire. Ils consacrent de nombreuses heures à cette passion et se forment pour offrir une animation de qualité.
-
-        <br> 
-
-        Le Patro, c’est un lieu d’épanouissement où l’on peut découvrir, grandir et devenir un CRACS: une citoyenne ou un citoyen responsable, actif,critique et solidaire.
-
-        <br>
-
-        Le Patro de Marbais se fera une joie d’accueillir tout nouvel arrivant.
-
-        <br>
-  
-          Pour toucher un petit mot sur le Patro :
-
-        <br>
-
-        Le Patro, ce sont plus de 22 000 enfants et jeunes (âgés de 5 à 16 ans) qui se retrouvent chaque semaine pour animer ou participer à des activités multiples.
-
-        <br> 
-
-        Le Patro, ce sont des animatrices et animateurs bénévoles qui s’engagent, prennent des responsabilités et participent à une société plus solidaire. Ils consacrent de nombreuses heures à cette passion et se forment pour offrir une animation de qualité.
-
-        <br> 
-
-        Le Patro, c’est un lieu d’épanouissement où l’on peut découvrir, grandir et devenir un CRACS: une citoyenne ou un citoyen responsable, actif,critique et solidaire.
-
-        <br>
-
-        Le Patro de Marbais se fera une joie d’accueillir tout nouvel arrivant.
-<br>
-
-        Le Patro, ce sont plus de 22 000 enfants et jeunes (âgés de 5 à 16 ans) qui se retrouvent chaque semaine pour animer ou participer à des activités multiples.
-
-        <br> 
-
-        Le Patro, ce sont des animatrices et animateurs bénévoles qui s’engagent, prennent des responsabilités et participent à une société plus solidaire. Ils consacrent de nombreuses heures à cette passion et se forment pour offrir une animation de qualité.
-
-        <br> 
-
-        Le Patro, c’est un lieu d’épanouissement où l’on peut découvrir, grandir et devenir un CRACS: une citoyenne ou un citoyen responsable, actif,critique et solidaire.
-
-        <br>
-
-        Le Patro de Marbais se fera une joie d’accueillir tout nouvel arrivant.
-
-        <br>
-  
-          Pour toucher un petit mot sur le Patro :
-
-        <br>
-
-        Le Patro, ce sont plus de 22 000 enfants et jeunes (âgés de 5 à 16 ans) qui se retrouvent chaque semaine pour animer ou participer à des activités multiples.
-
-        <br> 
-
-        Le Patro, ce sont des animatrices et animateurs bénévoles qui s’engagent, prennent des responsabilités et participent à une société plus solidaire. Ils consacrent de nombreuses heures à cette passion et se forment pour offrir une animation de qualité.
-
-        <br> 
-
-        Le Patro, c’est un lieu d’épanouissement où l’on peut découvrir, grandir et devenir un CRACS: une citoyenne ou un citoyen responsable, actif,critique et solidaire.
-
-        <br>
-
-        Le Patro de Marbais se fera une joie d’accueillir tout nouvel arrivant.
-
-  
+          Camp en Tchéquie : 02 au 12
       </div>
     </v-main>
   </v-app> 
@@ -200,10 +94,20 @@
 
 </script>
 <style scoped>
+#bienvenue {
+  left: 50%;
+}
+
 #body {
   background: url('../../img/wallpaper_dev3.jpg') no-repeat center;
   background-size: 100%;
   background-color: green;
 
 }
+
+#first {
+  position: relative;
+  top: 60px; left: 40px;
+  border: 5px solid darkblue;
+  }
 </style>
