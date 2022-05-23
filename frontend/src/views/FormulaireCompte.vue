@@ -52,9 +52,6 @@
             </v-form>
     </div>
 </template>
-
-
-
 <script>
 import axios from 'axios'
 export default {
@@ -68,33 +65,49 @@ export default {
         }
     },
     methods : {
-        test() {
-            
-            if (this.mdp_compte != this.mdp_compte2) {
-                alert("Les deux mots de passe ne sont pas identiques");
+test(){
+            if(this.nom_compte == "" || this.prenom_compte=="" || this.email_compte=="" || this.mdp_compte =="" || this.mdp_compte2 == "" ) {
+                alert("Veuillez compléter tous les champs");
             } else {
-                let user = {
-                    nom : this.nom_compte,
-                    prenom: this.prenom_compte,
-                    email: this.email_compte,
-                    password: this.mdp_compte,
-                    status : "Utilisateur"
-                }
-                axios
-                    .post("http://localhost:3000/api/auth/signup", user)
-                    .then((response) => {
-                        let id_parent = response.data.userId
-                        if (response.status == 201) {
-                            this.$router.push({ name: 'formulaire', params: { "Id_parent": id_parent } })
+                //axios.get('findone {email}') 
+                let regexEmail = /^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/;
+                if (this.email_compte.match(regexEmail)) {
+                    if (this.mdp_compte.match( /[0-9]/g) && 
+                    this.mdp_compte.match( /[A-Z]/g) && 
+                    this.mdp_compte.match(/[a-z]/g) && 
+                    this.mdp_compte.match( /[^a-zA-Z\d]/g) &&
+                    this.mdp_compte.length >= 12) {
+                        if (this.mdp_compte != this.mdp_compte2) {
+                            alert("Vos mots de passe ne sont pas identiques");
+                        } else {
+                            let user = {
+                                nom : this.nom_compte,
+                                prenom: this.prenom_compte,
+                                email: this.email_compte,
+                                password: this.mdp_compte,
+                                status : "Utilisateur"
+                            }
+                            axios
+                                .post("http://localhost:3000/api/auth/signup", user)
+                                .then((response) => {
+                                    let id_parent = response.data.userId
+                                    if (response.status == 201){
+                                        this.$router.push({name: "home"})
+                                    }
+                                }).catch(res => {
+                                    alert("Cette adresse email est déja utilisée.")
+                                })
                         }
-                    })
+                    } else {
+                        alert("Votre mot de passe doit contenir une majuscule, une minuscule, un chiffre et doit faire au moins 12 caractères");
+                    }
+                } else{
+                    alert("L'adresse email n'est pas valide")
+                }
             }
         }
     }
 }
 </script>
-
-
-
 <style>
 </style>

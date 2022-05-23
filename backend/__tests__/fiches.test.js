@@ -66,7 +66,7 @@ describe('Register', () => {
         .post('/api/staff/fiches')
         .send(fiche_médicale);
 
-        expect(res.statusCode).toEqual(201);
+        expect(res.status).toEqual(201);
     });
 
 });
