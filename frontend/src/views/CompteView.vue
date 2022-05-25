@@ -8,6 +8,7 @@
       :items="fiches_enfants"
       :items-per-page="5"
       class="elevation-8"
+      @click:row="fiche"
       id="poussin"          
     >
     </v-data-table>
@@ -56,7 +57,7 @@ export default {
       if(this.id_parent !== undefined){
         let parent_json = {id_parent : this.id_parent};
         axios
-        .get("https://localhost:3000/api/staff/fiches", {params :parent_json})
+        .get("https://localhost:3000/api/compte/fiches", {params :parent_json})
         .then((response) => {
           this.content = response.data;
           this.fiches_enfants;
@@ -65,7 +66,7 @@ export default {
             this.fiches_enfants.push(result);
           } else  {
             for (let i in this.content){
-              let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant};
+              let result = {nom_complet: this.content[i].nom_enfant + " " + this.content[i].prenom_enfant, id : this.content[i]._id};
               this.fiches_enfants.push(result);
             }
           }
@@ -74,16 +75,17 @@ export default {
     },
     methods : {
         inscription () {
-          let id_parent = this.$route.params.id_parent;
-          let status =  this.$route.params.status;
           this.$router.push({
             name: 'formulaire',
-            params : 
-              {'id_parent' : id_parent, 'status': status}
           }) 
         },
         deconnexion() {
           window.location.reload()
+        },
+        fiche(value){
+          this.$router.push({
+          path : `compte/${value.id}`
+          })
         }
     }
 }

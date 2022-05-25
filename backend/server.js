@@ -1,11 +1,11 @@
-const fs = require('fs');
 const https = require('https');
 const app = require('./app');
+const fs = require('fs')
 
 const options = {
-  key: fs.readFileSync('key.pem'),
-  cert: fs.readFileSync('cert.pem')
-};
+  key : fs.readFileSync('../cert/key.pem'),
+  cert : fs.readFileSync('../cert/cert.pem')
+}
 
 const normalizePort = val => { //a fonction normalizePort renvoie un port valide, qu'il soit fourni sous la forme d'un numéro ou d'une chaîne
   const port = parseInt(val, 10);

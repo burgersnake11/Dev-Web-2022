@@ -448,7 +448,8 @@ export default {
             remarques_supplementaires: '',
             id_groupe: 0,
             content: '',
-            id_parent: ''
+            id_parent: '',
+            status: '',
         }
     },
   methods: {
@@ -463,12 +464,11 @@ export default {
           }).join(''));
           let userConnected = JSON.parse(jsonPayload);
           this.id_parent = userConnected.userId
+          this.status = userConnected.status
       } else {
-        return ("Utilisteur pas connecté")
+        return ("Utilisateur pas connecté")
       }
       let id_groupe = this.creerid();
-      console.log(id_groupe)
-      let status =  this.$route.params.status;
       let item = {
         "nom_enfant": this.nom,
         "prenom_enfant": this.prenom,
@@ -522,7 +522,7 @@ export default {
         "id_parent": this.id_parent,
         "payer": false,
       }
-      if((this.nom === '') || (this.prenom === '') || (this.adresse === '') || (this.date === '') || (this.registre === '') || (this.facebook === null) || (this.nom_resp1 === '') || (this.adresse_resp1 === '') || (this.tel_resp1 === '') || (this.email_resp1 === '') || (this.tel_urgence === '') || (this.tetanos === '') || (this.groupe_sanguin === '') || (this.protection_nuit === null) || (this.peur_nuit === null) || (this.appareil_dentaire_amovible === null) || (this.appareil_auditif === null) || (this.nager === '')){
+       if((this.nom === '') || (this.prenom === '') || (this.adresse === '') || (this.date === '') || (this.registre === '') || (this.facebook === null) || (this.nom_resp1 === '') || (this.adresse_resp1 === '') || (this.tel_resp1 === '') || (this.email_resp1 === '') || (this.tel_urgence === '') || (this.tetanos === '') || (this.groupe_sanguin === '') || (this.protection_nuit === null) || (this.peur_nuit === null) || (this.appareil_dentaire_amovible === null) || (this.appareil_auditif === null) || (this.nager === '')){
         alert("Veuillez compléter tous les champs obligatoires !")
         return
       } else if((!(this.verifierDate(this.date))) || (!(this.verifierDate(this.tetanos)))){
@@ -542,6 +542,7 @@ export default {
             })
           }
         })
+        this.passerParent()
       }
     },
     verifierDate(dateverif){
@@ -579,13 +580,10 @@ export default {
         return Math.floor(age_enfant)
       }
     },
-
     creerid(){
       let age_enfant = this.calculerAge();
       let id_groupe;
-      console.log(age_enfant)
-
-      if(age_enfant < 5 || age_enfant > 16){
+      if(age_enfant < 5 || age_enfant > 18){
         id_groupe = 5
         return id_groupe
       }
@@ -605,10 +603,20 @@ export default {
         id_groupe = 3
         return id_groupe
       }
-      else if(age_enfant > 14 && age_enfant <= 16){
+      else if(age_enfant > 14 && age_enfant <= 18){
         id_groupe = 4
         return id_groupe
       } 
+    },
+    passerParent(){
+      if(this.status == "Utilisateur"){
+        let compte_json = {
+            _id : this.id_parent,
+            status : "Parents"
+        }
+        axios
+            .post("https://localhost:3000/api/compte/update", compte_json);
+      }
     }
   }
 }

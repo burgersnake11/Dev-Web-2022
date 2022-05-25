@@ -50,7 +50,16 @@ exports.saveUser = (req, res) => {
   let status = Object.keys(req.body)[1];
   let status_value = Object.values(req.body)[1];
   let status_json = {[status]:status_value}
-  User.updateOne(email_json, {$set:status_json} )
+  User.updateOne(email_json, {$set:status_json})
     .then(() => res.status(201).json({ message: 'Utilisateur modifié !' }))
     .catch(error => res.status(400).json({ error }));
+}
+
+exports.deleteUser = (req, res) => {
+  let email = Object.keys(req.body);
+  let email_value = Object.values(req.body);
+  let email_json = {[email]:email_value}
+  User.deleteOne(email_json)
+  .then(() => res.status(204).json({ message: 'Utilisateur supprimé !' }))
+  .catch(error => res.status(400).json({ error }));
 }

@@ -7,6 +7,9 @@ module.exports = defineConfig({
   ],
   lintOnSave: false,
   devServer: {
-    https: true,
+    https: {
+      key : fs.readFileSync('../cert/key.pem'),
+      cert : fs.readFileSync('../cert/cert.pem')
+    }
   }
 })

@@ -48,19 +48,18 @@ export default {
                 password: this.mdp_compte         
             };
                 axios
-                    .post("https://127.0.0.1:3000/api/auth/login", user)
+                    .post("https://localhost:3000/api/auth/login", user)
                     .then((response) => {
-                        let id_parent = response.data.userId;
-                        let status = response.data.status;
                         let token = response.data.token
                         axios.defaults.headers.common['Authorization'] = `Bearer ` + token
                         if (response.status == 200) {
                             this.$router.push({
-                                name: 'compte',
-                                params : 
-                                {'id_parent' : id_parent, 'status': status, 'token': response.data.token}
+                                name: 'compte'
                             })
                         }
+                    })
+                    .catch((res) => {
+                        alert("L'adresse email ou le mot de passe n'est pas correct")
                     })
         },
         test() {

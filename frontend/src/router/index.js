@@ -232,6 +232,11 @@ const routes = [
         })
       }
     }    
+  },
+  {
+    path: '/compte/:id',
+    name: 'ficheenfantcompte',
+    component: () => import('../views/FicheEnfantCompte.vue'),
   }
 ]
 

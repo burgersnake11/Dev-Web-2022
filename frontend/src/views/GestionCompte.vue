@@ -83,6 +83,12 @@
       >
         mdi-pencil
       </v-icon> 
+      <v-icon
+        small
+        @click="deleteItem(item)"
+      >
+        mdi-delete
+      </v-icon>
     </template>
   </v-data-table>
 </template>
@@ -190,6 +196,11 @@
             .post("https://localhost:3000/api/gestion/update", compte_json);
         this.close()
       },
+      deleteItem(item) {
+        this.editedIndex = this.comptes.indexOf(item)
+        this.editedIndex.rem
+      }
+      
     },
   }
 </script>
