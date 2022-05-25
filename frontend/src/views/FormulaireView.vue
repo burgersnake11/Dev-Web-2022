@@ -467,6 +467,7 @@ export default {
         return ("Utilisteur pas connecté")
       }
       let id_groupe = this.creerid();
+      console.log(id_groupe)
       let status =  this.$route.params.status;
       let item = {
         "nom_enfant": this.nom,
@@ -521,19 +522,37 @@ export default {
         "id_parent": this.id_parent,
         "payer": false,
       }
+      console.log(item)
       if((this.nom === '') || (this.prenom === '') || (this.adresse === '') || (this.date === '') || (this.registre === '') || (this.facebook === null) || (this.nom_resp1 === '') || (this.adresse_resp1 === '') || (this.tel_resp1 === '') || (this.email_resp1 === '') || (this.tel_urgence === '') || (this.tetanos === '') || (this.groupe_sanguin === '') || (this.protection_nuit === null) || (this.peur_nuit === null) || (this.appareil_dentaire_amovible === null) || (this.appareil_auditif === null) || (this.nager === '')){
         alert("Veuillez compléter tous les champs obligatoires !")
+        return
+      } else if((!(this.verifierDate(this.date))) || (!(this.verifierDate(this.tetanos)))){
+        alert("Les dates entrées ne conviennent pas !")
+        return
+      } else if(id_groupe == 5){
+        alert("Enfant trop jeune/vieux pour être inscrit !")
+        return
       } else {
-      axios
+        axios
         .post("http://localhost:3000/api/staff/fiches", item)
         .then((res) => {
           if(res.status == 201){
+            alert("Enfant créé !")
             this.$router.push({
-              name :'compte'
+              name :'compte',
             })
           }
         })
       }
+    },
+    verifierDate(dateverif){
+      const date_jour = new Date();
+      dateverif = new Date(dateverif);
+      let diff = date_jour.getTime() - dateverif.getTime();
+      if (diff < 0){
+        return false
+      }
+      return true
     },
     calculerAge(){
       let date_naissance;
@@ -542,7 +561,6 @@ export default {
       let diff;
       let age_enfant;
       date_naissance = this.date;
-
       if (date_ajd.getMonth() + 1 < 9){
         annee_patro = date_ajd.getFullYear() - 1;
         annee_patro = annee_patro.toString() + "-09-01";
@@ -561,33 +579,35 @@ export default {
         return Math.floor(age_enfant)
       }
     },
-
     creerid(){
       let age_enfant = this.calculerAge();
       let id_groupe;
-
-      if(4 < age_enfant && age_enfant <= 6){
+      console.log(age_enfant)
+      if(age_enfant < 5 || age_enfant > 18){
+        id_groupe = 5
+        return id_groupe
+      }
+      else if(5 <= age_enfant && age_enfant <= 6){
         id_groupe = 0
         return id_groupe
       }
-      else if(age_enfant <= 8){
+      else if(age_enfant > 6 && age_enfant <= 8){
         id_groupe = 1
         return id_groupe
       }
-      else if(age_enfant <= 12){
+      else if(age_enfant > 8 && age_enfant <= 12){
         id_groupe = 2
         return id_groupe
       }
-      else if(age_enfant <= 14){
+      else if(age_enfant > 12 && age_enfant <= 14){
         id_groupe = 3
         return id_groupe
       }
-      else{
+      else if(age_enfant > 14 && age_enfant <= 18){
         id_groupe = 4
         return id_groupe
-      }
+      } 
     }
-
   }
 }
 </script>

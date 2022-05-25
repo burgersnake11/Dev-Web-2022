@@ -10,6 +10,8 @@
 
                 <v-text-field
                 v-model="mdp_compte"
+                id="input_password"
+                type="password"
                 label="Mot de passe"
                 required
                 ></v-text-field>
@@ -56,12 +58,13 @@ export default {
                         axios.defaults.headers.common['Authorization'] = `Bearer ` + token
                         if (response.status == 200) {
                             this.$router.push({
-                                name: 'compte',
-                                params : 
-                                {'id_parent' : id_parent, 'status': status, 'token': response.data.token}
+                                name: 'compte'
                             })
                         }
                     })
+                    .catch((res) => {
+                        alert("L'adresse email ou le mot de passe n'est pas correct")
+                    });
         },
         test() {
             pass
@@ -73,4 +76,5 @@ export default {
 
 
 <style>
+
 </style>

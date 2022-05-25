@@ -25,7 +25,12 @@
                 required
                 ></v-text-field>
 
+                <br>
+                <p id="info_mdp">Votre mot de passe doit contenir une majuscule, une minuscule, un chiffre et doit faire au moins 12 caractères </p>
+                <br>
+
                 <v-text-field
+                type="password"
                 v-model="mdp_compte"
                 label="Mot de passe"
                 required
@@ -33,6 +38,7 @@
 
                 <v-text-field
                 v-model="mdp_compte2"
+                type="password"
                 label="Retaper votre mot de passe"
                 required
                 ></v-text-field>
@@ -110,4 +116,7 @@ test(){
 }
 </script>
 <style>
+#info_mdp {
+    color: red;
+}
 </style>

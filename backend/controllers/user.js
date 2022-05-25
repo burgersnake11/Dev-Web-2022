@@ -16,6 +16,7 @@ exports.signup = (req, res, next) => {
         password: hash,
         status: "Utilisateur"
       });
+
       user.save()
         .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
         .catch(error => res.status(400).json({ error }));
@@ -34,7 +35,7 @@ exports.login = (req, res) => {
         .then(valid => {
           if (!valid) {
             console.log("Mot de passe incorrect !")
-            return res.status(401).json({ error: 'Mot de passe incorrect !' });
+            return res.status(401);
           }
           
           res.status(200).json({
