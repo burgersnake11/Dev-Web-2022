@@ -73,6 +73,17 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
+        <v-dialog  v-model="dialogDelete" max-width="500px">
+          <v-card>
+            <v-card-title class="text-h6">Êtes-vous sûr de vouloir supprimer ce compte ?</v-card-title>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </v-toolbar>
     </template>
     <template v-slot:[`item.actions`]="{ item }">
@@ -82,7 +93,7 @@
         @click="editItem(item)"
       >
         mdi-pencil
-      </v-icon> 
+      </v-icon>
       <v-icon
         small
         @click="deleteItem(item)"
@@ -97,6 +108,7 @@
   export default {
     data: () => ({
       dialog: false,
+      dialogDelete: false, 
       recherche: null,
       headers: [
         { text : 'Nom du compte', value: 'nom'},
@@ -120,9 +132,13 @@
       ],
       comptes: [],
       editedIndex: -1,
+      deletedIndex: -1,
       editedItem: {
         email: '',
         status: 0,
+      },
+      deletedItem: {
+        email: ''
       },
       defaultItem: {
         email: '',
@@ -137,7 +153,7 @@
     initialize () {
         this.comptes = [];
         axios
-        .get('https://localhost:3000/api/gestion/users')
+        .get('http://176.96.231.165:3000/api/gestion/users')
         .then((response) => {
             this.content = response.data;
             for (let i in this.content){
@@ -159,7 +175,7 @@
         else if(this.recherche === null){
             alert("Veuillez choisir un filtre !")
         }
-        axios.get('https://localhost:3000/api/gestion/users', {params: query_choisie})
+        axios.get('http://176.96.231.165:3000/api/gestion/users', {params: query_choisie})
         .then((response) => {
             this.content = response.data;
             this.comptes=[]
@@ -186,6 +202,9 @@
           this.editedIndex = -1
         })
       },
+      closeDelete () {
+        this.dialogDelete = false
+      },
       save () {
         Object.assign(this.comptes[this.editedIndex], this.editedItem)
         let compte_json = {
@@ -193,12 +212,23 @@
             status : this.editedItem.status
         }
         axios
-            .post("https://localhost:3000/api/gestion/update", compte_json);
+            .post("http://176.96.231.165:3000/api/gestion/update", compte_json);
         this.close()
       },
+      deleteItemConfirm(){
+        let email_json = {
+          email : this.deletedItem.email
+          }
+        axios
+            .post("http://176.96.231.165:3000/api/gestion/delete",email_json)
+        this.initialize();
+        this.closeDelete();
+      },
       deleteItem(item) {
-        this.editedIndex = this.comptes.indexOf(item)
-        this.editedIndex.rem
+        this.deletedIndex = this.comptes.indexOf(item)
+        this.deletedItem = Object.assign({}, item)
+
+        this.dialogDelete = true
       }
       
     },

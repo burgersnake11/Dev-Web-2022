@@ -63,7 +63,7 @@ export default {
       let query = {_id : this.$route.params.id};
       console.log(query)
       axios
-        .get('https://localhost:3000/api/compte/fiches', {params : query})
+        .get('http://176.96.231.165:3000/api/compte/fiches', {params : query})
         .then(response => {
             this.content = response.data[0]
             this.prenom = this.content.prenom_enfant

@@ -10,6 +10,7 @@
 
                 <v-text-field
                 v-model="mdp_compte"
+                type="password"
                 label="Mot de passe"
                 required
                 ></v-text-field>
@@ -48,7 +49,7 @@ export default {
                 password: this.mdp_compte         
             };
                 axios
-                    .post("https://localhost:3000/api/auth/login", user)
+                    .post("http://176.96.231.165:3000/api/auth/login", user)
                     .then((response) => {
                         let token = response.data.token
                         axios.defaults.headers.common['Authorization'] = `Bearer ` + token

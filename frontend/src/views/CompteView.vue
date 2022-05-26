@@ -57,7 +57,7 @@ export default {
       if(this.id_parent !== undefined){
         let parent_json = {id_parent : this.id_parent};
         axios
-        .get("https://localhost:3000/api/compte/fiches", {params :parent_json})
+        .get("http://176.96.231.165:3000/api/compte/fiches", {params :parent_json})
         .then((response) => {
           this.content = response.data;
           this.fiches_enfants;
@@ -80,6 +80,9 @@ export default {
           }) 
         },
         deconnexion() {
+          this.$router.push({
+            name: 'home'
+          })
           window.location.reload()
         },
         fiche(value){

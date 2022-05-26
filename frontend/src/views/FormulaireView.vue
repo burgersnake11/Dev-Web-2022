@@ -533,7 +533,7 @@ export default {
         return
       } else {
         axios
-        .post("https://localhost:3000/api/staff/fiches", item)
+        .post("http://176.96.231.165:3000/api/staff/fiches", item)
         .then((res) => {
           if(res.status == 201){
             alert("Enfant créé !")
@@ -615,7 +615,7 @@ export default {
             status : "Parents"
         }
         axios
-            .post("https://localhost:3000/api/compte/update", compte_json);
+            .post("http://176.96.231.165:3000/api/compte/update", compte_json);
       }
     }
   }

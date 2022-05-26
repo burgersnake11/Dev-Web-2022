@@ -81,11 +81,10 @@
     created () {
       this.initialize()
     },
-
     methods: {
     initialize () {
         axios
-        .get('https://localhost:3000/api/staff/fiches')
+        .get('http://176.96.231.165:3000/api/staff/fiches')
         .then((response) => {
             this.content = response.data;
             for (let i in this.content){
@@ -119,7 +118,7 @@
         else if(this.recherche === null){
             alert("Veuillez choisir un filtre !")
         }
-        axios.get('https://localhost:3000/api/staff/fiches', {params: query_choisie})
+        axios.get('http://176.96.231.165:3000/api/staff/fiches', {params: query_choisie})
         .then((response) => {
             this.content = response.data;
             for (let i in this.content){
@@ -144,7 +143,7 @@
     },
     save (editedItem) {
       axios
-          .post("https://localhost:3000/api/staff/paiement", editedItem);
+          .post("http://176.96.231.165:3000/api/staff/paiement", editedItem);
     },
     test (item) {
       let i
@@ -161,7 +160,6 @@
         payer: i
       }
       this.save(compte_change)
-
     }
   },
 }
@@ -170,5 +168,4 @@
 #recherche{
     margin:50px
 }
-
 </style>

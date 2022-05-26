@@ -28,11 +28,13 @@
                 <v-text-field
                 v-model="mdp_compte"
                 label="Mot de passe"
+                type="password"
                 required
                 ></v-text-field>
 
                 <v-text-field
                 v-model="mdp_compte2"
+                type="password"
                 label="Retaper votre mot de passe"
                 required
                 ></v-text-field>
@@ -68,8 +70,7 @@ export default {
 test(){
             if(this.nom_compte == "" || this.prenom_compte=="" || this.email_compte=="" || this.mdp_compte =="" || this.mdp_compte2 == "" ) {
                 alert("Veuillez compléter tous les champs");
-            } else {
-                //axios.get('findone {email}') 
+            } else { 
                 let regexEmail = /^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/;
                 if (this.email_compte.match(regexEmail)) {
                     if (this.mdp_compte.match( /[0-9]/g) && 
@@ -88,7 +89,7 @@ test(){
                                 status : "Utilisateur"
                             }
                             axios
-                                .post("https://localhost:3000/api/auth/signup", user)
+                                .post("http://176.96.231.165:3000/api/auth/signup", user)
                                 .then((response) => {
                                     let id_parent = response.data.userId
                                     if (response.status == 201){

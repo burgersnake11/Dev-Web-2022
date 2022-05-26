@@ -13,53 +13,99 @@ exports.gestionUser = (req, res) => {
       if (err) {
         return err
       }
-      if(filtre_query == "recherche"){
-        User.find({$or: [{nom: {$regex : new RegExp(query_filtre, "i")}}, {prenom : {$regex : new RegExp(query_filtre, "i")}}, {email: {$regex : new RegExp(query_filtre, "i")}}]}).then(
-          (test) => {
-            res.status(200).json(test);
-          }
-        ).catch(
-          (error) => {
-            res.status(400).json({
-              error: error
-            });
-          }
-        );
-      }
-       else {
-        User.find().then(
-          (test) => {
-            res.status(200).json(test);
-          }
-        ).catch(
-          (error) => {
-            res.status(400).json({
-              error: error
-            });
-          }
-        );
+      var base64Url = token.split('.')[1];
+      var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      var jsonPayload = decodeURIComponent(Buffer.from(base64, 'base64').toString().split('').map(function(c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+      let userConnected = JSON.parse(jsonPayload);
+      if(userConnected.status == "Admin"){
+        if(filtre_query == "recherche"){
+          User.find({$or: [{nom: {$regex : new RegExp(query_filtre, "i")}}, {prenom : {$regex : new RegExp(query_filtre, "i")}}, {email: {$regex : new RegExp(query_filtre, "i")}}]}).then(
+            (test) => {
+              res.status(200).json(test);
+            }
+          ).catch(
+            (error) => {
+              res.status(400).json({
+                error: error
+              });
+            }
+          );
+        }
+        else {
+          User.find().then(
+            (test) => {
+              res.status(200).json(test);
+            }
+          ).catch(
+            (error) => {
+              res.status(400).json({
+                error: error
+              });
+            }
+          );
+        }
       }
     })
   }
 }
 
 exports.saveUser = (req, res) => {
-  let email = Object.keys(req.body)[0];
-  let email_value = Object.values(req.body)[0];
-  let email_json = {[email]:email_value}
-  let status = Object.keys(req.body)[1];
-  let status_value = Object.values(req.body)[1];
-  let status_json = {[status]:status_value}
-  User.updateOne(email_json, {$set:status_json})
-    .then(() => res.status(201).json({ message: 'Utilisateur modifié !' }))
-    .catch(error => res.status(400).json({ error }));
+  const authHeader = req.headers.authorization;
+  if (authHeader) {
+    let token = authHeader.split('Bearer ')[1];
+
+    jwt.verify(token, tokenAccess, (err, user) => {
+      if (err) {
+        return err
+      }
+      var base64Url = token.split('.')[1];
+      var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      var jsonPayload = decodeURIComponent(Buffer.from(base64, 'base64').toString().split('').map(function(c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+      let userConnected = JSON.parse(jsonPayload);
+      if(userConnected.status == "Admin"){
+        let email = Object.keys(req.body)[0];
+        let email_value = Object.values(req.body)[0];
+        let email_json = {[email]:email_value}
+        let status = Object.keys(req.body)[1];
+        let status_value = Object.values(req.body)[1];
+        let status_json = {[status]:status_value}
+        User.updateOne(email_json, {$set:status_json})
+          .then(() => res.status(201).json({ message: 'Utilisateur modifié !' }))
+          .catch(error => res.status(400).json({ error }));
+      } else {
+        return "Vous n'avez pas les droits !"
+      }
+    })
+  }
 }
 
 exports.deleteUser = (req, res) => {
-  let email = Object.keys(req.body);
-  let email_value = Object.values(req.body);
-  let email_json = {[email]:email_value}
-  User.deleteOne(email_json)
-  .then(() => res.status(204).json({ message: 'Utilisateur supprimé !' }))
-  .catch(error => res.status(400).json({ error }));
+  const authHeader = req.headers.authorization;
+  if (authHeader) {
+    let token = authHeader.split('Bearer ')[1];
+
+    jwt.verify(token, tokenAccess, (err, user) => {
+      if (err) {
+        return err
+      }
+      var base64Url = token.split('.')[1];
+      var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      var jsonPayload = decodeURIComponent(Buffer.from(base64, 'base64').toString().split('').map(function(c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+      let userConnected = JSON.parse(jsonPayload);
+      if(userConnected == "Admin"){
+        let email = Object.keys(req.body)[0];
+        let email_value = Object.values(req.body)[0];
+        let email_json = {[email]:email_value}
+        User.deleteOne(email_json)
+        .then(() => res.status(204).json({ message: 'Utilisateur supprimé !' }))
+        .catch(error => res.status(400).json({ error }));
+      }
+    })
+  }
 }

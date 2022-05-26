@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require("mongoose");
 const app = express(); //permet de créer une application express, qui va recevoir les requetes
-const morgan = require("morgan");
+//const morgan = require("morgan");
 
 
 const Fiches = require('./models/Fiches');
@@ -20,7 +20,7 @@ app.use((req, res, next) => {
 }); 
   
 app.use(express.json()); //Intercepte toute les requetes qui ont un content type json et le met a dispo dans req.body, donne accès au corps de la requette
-app.use(morgan('combined'));
+//app.use(morgan('combined'));
 app.use('/api/staff', fichesRoutes);
 app.use('/api/auth', userRoutes);
 app.use('/api/gestion', gestUserRoutes);

@@ -5,9 +5,7 @@ const fichesCtrl = require('../controllers/staff');
 
 routerFiche.get('/fiches', fichesCtrl.TouteLesFiches);
 routerFiche.post('/fiches', fichesCtrl.CreerUneFiche);
-routerFiche.post('/paiement', function(req, res){
-    fichesCtrl.PayerAffiliation
-});
+routerFiche.post('/paiement',fichesCtrl.PayerAffiliation);
 
 
 module.exports = routerFiche;
