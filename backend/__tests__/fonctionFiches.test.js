@@ -57,7 +57,13 @@ describe('Âge', () => {
     it("retourne l'âge qu'avait l'enfant en début d'année patro", () => {
         expect(calculerAge('2005-08-09')).toEqual(16);
     });
+    it("retourne l'âge qu'avait l'enfant en début d'année patro", () => {
+        expect(calculerAge('2015-01-11')).toEqual(6);
+    });
     it("retourne l'id groupe de l'enfant en fonction de son âge", () => {
         expect(creerid('2005-08-09')).toEqual(4)
+    });
+    it("retourne l'id groupe de l'enfant en fonction de son âge", () => {
+        expect(creerid('2015-01-11')).toEqual(0)
     })
 });

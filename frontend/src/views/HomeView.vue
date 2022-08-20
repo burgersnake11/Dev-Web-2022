@@ -1,10 +1,9 @@
 <template>
   <v-app id="background">
-    <v-main id="body">
-      <div id="bienvenue">
-        Bienvenue sur le site web du patro de marbais !
-      </div>
-      <div>
+    <v-main id="body" class = "test">
+      <div id="bienvenue" class = "red">
+        Bienvenu sur le site web du patro de marbais !
+        <br>
         Horaire : Samedi de 13h15 à 17h00
       </div>
       <div class='pink' id='first'>
@@ -16,7 +15,11 @@
 
         <br> 
 
-        Le Patro, ce sont des animatrices et animateurs bénévoles qui s’engagent, prennent des responsabilités et participent à une société plus solidaire. Ils consacrent de nombreuses heures à cette passion et se forment pour offrir une animation de qualité.
+        Le Patro, ce sont des animatrices et animateurs bénévoles qui s’engagent, prennent des responsabilités et participent à une société plus solidaire. 
+        
+        <br>
+
+        Ils consacrent de nombreuses heures à cette passion et se forment pour offrir une animation de qualité.
 
         <br> 
 
@@ -98,16 +101,27 @@
   left: 50%;
 }
 
-#body {
+.test {
   background: url('../../img/wallpaper_dev3.jpg') no-repeat center;
   background-size: 100%;
   background-color: green;
-
 }
+.pink{
+  opacity:0.75;
+  margin:5%;
+  padding: 5px;
+}
+.orange{
+  opacity:0.75;
+  margin: 5%;
+  padding: 5px;
+}
+.red{
+  background-color:red;
+  opacity: 75%;
+  margin: 5%;
+  padding: 5px;
+}
+  
 
-#first {
-  position: relative;
-  top: 60px; left: 40px;
-  border: 5px solid darkblue;
-  }
 </style>

@@ -24,7 +24,7 @@ exports.TouteLesFiches = (req, res) => {
         }
         var base64Url = token.split('.')[1];
         var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        var jsonPayload = decodeURIComponent(Buffer.from(base64, 'base64').split('').map(function(c) {
+        var jsonPayload = decodeURIComponent(Buffer.from(base64, 'base64').toString().split('').map(function(c) {
             return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
         }).join(''));
         let userConnected = JSON.parse(jsonPayload);
@@ -97,74 +97,41 @@ exports.TouteLesFiches = (req, res) => {
 
 exports.CreerUneFiche = (req, res) => {
   delete req.body._id
-  let vars = 
-  {     "nom_enfant": cryptr.encrypt(String(req.body.nom)),
-        "prenom_enfant": cryptr.encrypt(String(req.body.prenom)),
-        "adresse_enfant": cryptr.encrypt(String(req.body.adresse)),
-        "ddn_enfant": cryptr.encrypt(String(req.body.date)),
-        "numero_registre_enfant": cryptr.encrypt(String(req.body.registre)),
-        "facebook_autorisation": req.body.facebook_autorisation,
-        "nom_resp_1": cryptr.encrypt(String(req.body.nom_resp1)),
-        "adresse_resp_1": cryptr.encrypt(String(req.body.dresse_resp1)),
-        "tel_resp_1": cryptr.encrypt(String(req.body.tel_resp1)),
-        "email_resp_1": cryptr.encrypt(String(req.body.email_resp1)),
-        "nom_resp_2": cryptr.encrypt(String(req.body.nom_resp2)),
-        "adresse_resp_2": cryptr.encrypt(String(req.body.adresse_resp2)),
-        "tel_resp_2": cryptr.encrypt(String(req.body.tel_resp2)),
-        "email_resp_2": cryptr.encrypt(String(req.body.email_resp2)),
-        "tel_urgence": cryptr.encrypt(String(req.body.tel_urgence)),
-        "tetanos": req.body.tetanos,
-        "groupe_sanguin": req.body.groupe_sanguin,
-        "protection_nuit": req.body.protection_nuit,
-        "peur_nuit": req.body.peur_nuit,
-        "appareil_dentaire": req.body.appareil_dentaire,
-        "appareil_auditif": req.body.appareil_auditif,
-        "diabete": req.body.diabete,
-        "maladie_cardiaque": req.body.maladie_cardiaque,
-        "affection_peau": req.body.affection_peau,
-        "somnambulisme": req.body.somnambulisme,
-        "insomnie": req.body.insomnie,
-        "incontinence": req.body.incontinence,
-        "eczema": req.body.eczema,
-        "asthme": req.body.asthme,
-        "sinusite": req.body.sinusite,
-        "bronchite": req.body.bronchite,
-        "saignement_nez": req.body.saignement_nez,
-        "maux_tete": req.body.maux_tete,
-        "maux_ventre": req.body.maux_ventre,
-        "constipation": req.body.constipation,
-        "diarrhee": req.body.diarrhee,
-        "vomissements": req.body.vomissements,
-        "mal_route": req.body.mal_route,
-        "acariens": req.body.acariens,
-        "pollen": req.body.pollen,
-        "soleil": req.body.soleil,
-        "maquillage": req.body.maquillage,
-        "savon": req.body.savon,
-        "poils_animaux": req.body.poils_animaux,
-        "allergie_supplementaire": req.body.allergie_supplementaire,
-        "sais_nager": req.body.sais_nager,
-        "sport_difficile": req.body.sport_difficile,
-        "remarque_supplementaire": req.body.remarque_supplementaire,
-        "id_groupe": req.body.id_groupe,
-        "id_parent": req.body.id_parent,
-        "payer": false
-  };
-  const enfant = new Fiches(vars);
+  const enfant = new Fiches({
+    ...req.body
+  });
   enfant.save()
   .then(() => res.status(201).json({ message : "Enfant créé !"}))
   .catch(error => res.status(400).json({error}));
 };
 
 exports.PayerAffiliation = (req, res) => {
-  let id = Object.keys(req.body)[0];
-  let id_value = Object.values(req.body)[0];
-  let userObjectId = mongoose.Types.ObjectId(id_value);
-  let id_json = {[id]:userObjectId};
-  let payer = Object.keys(req.body)[1];
-  let payer_value = Object.values(req.body)[1];
-  let payer_json = {[payer]:payer_value}
-  Fiches.updateOne(id_json, {$set:payer_json} )
-    .then((test) => res.status(201).json(test))
-    .catch(error => res.status(400).json({ error }));
+  const authHeader = req.headers.authorization;
+  if (authHeader) {
+    let token = authHeader.split('Bearer ')[1];
+
+    jwt.verify(token, tokenAccess, (err, user) => {
+        if (err) {
+          return err
+        }
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(Buffer.from(base64, 'base64').toString().split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        let userConnected = JSON.parse(jsonPayload);
+        if(userConnected.status == "Admin"){
+          let id = Object.keys(req.body)[0];
+          let id_value = Object.values(req.body)[0];
+          let userObjectId = mongoose.Types.ObjectId(id_value);
+          let id_json = {[id]:userObjectId};
+          let payer = Object.keys(req.body)[1];
+          let payer_value = Object.values(req.body)[1];
+          let payer_json = {[payer]:payer_value}
+          Fiches.updateOne(id_json, {$set:payer_json} )
+            .then((test) => res.status(201).json(test))
+            .catch(error => res.status(400).json({ error }));
+        }
+    })
+  }
 };
