@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkfrontend"]=self["webpackChunkfrontend"]||[]).push([[820],{1820:function(t,n,e){e.r(n),e.d(n,{default:function(){return a}});var r=function(){var t=this,n=t.$createElement;t._self._c;return t._m(0)},c=[function(){var t=this,n=t.$createElement,e=t._self._c||n;return e("div",{staticClass:"contact"},[e("h1",[t._v("Contact")])])}],u=e(1001),l={},s=(0,u.Z)(l,r,c,!1,null,null,null),a=s.exports}}]);
+//# sourceMappingURL=820-legacy.322398be.js.map

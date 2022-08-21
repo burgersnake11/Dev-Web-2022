@@ -1,0 +1,50 @@
+[req]
+
+default_bits = 2048
+
+prompt = no
+
+default_md = sha256
+
+x509_extensions = v3_req
+
+distinguished_name = dn
+
+[dn]
+
+C = BE
+
+ST = MyState
+
+L = MyCity
+
+O = MyOrg
+
+emailAddress = be@test.com
+
+CN = localhost:
+
+[req_ext]
+subjectAltName = @alt_names
+
+[v3_req]
+
+subjectAltName = @alt_names
+
+[alt_names]
+
+DNS.1 = localhost:8080
+
+DNS.2 = localhost.localdomain
+
+DNS.3 = lvh.me
+
+DNS.4 = *.lvh.me
+
+DNS.5 = [::1]
+
+DNS.6 = localhost
+
+DNS.7 = localhost:3000
+
+IP.1 = 192.168.0.46
