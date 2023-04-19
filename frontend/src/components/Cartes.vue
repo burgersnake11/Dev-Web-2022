@@ -37,7 +37,7 @@ export default {
     }
 }
 </script>
-
+	//ajout de quelque chose sur un repos distant
 <style scoped>
 
 </style>
